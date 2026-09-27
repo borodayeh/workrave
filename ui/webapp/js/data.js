@@ -14,7 +14,7 @@ const EXERCISES = [
     name: "Shoulder-arm stretch",
     description: "Stretch your shoulder and arm muscles to reduce tension.",
     duration: 40,
-    images: ["assets/exercises/shoulder-arm-stretch-1.png"]
+    images: ["assets/exercises/shoulder-arm-stretch.png"]
   },
   {
     id: "finger-stretch",
@@ -35,7 +35,7 @@ const EXERCISES = [
     name: "Backward shoulder stretch",
     description: "Stretch your shoulder muscles by pulling your arm backward.",
     duration: 30,
-    images: ["assets/exercises/backward-shoulder-stretch-1.png"]
+    images: ["assets/exercises/backward-shoulder-stretch.png"]
   },
   {
     id: "move-the-eyes",
@@ -56,14 +56,14 @@ const EXERCISES = [
     name: "Look into the darkness",
     description: "Close your eyes and relax them in darkness.",
     duration: 20,
-    images: ["assets/exercises/eye-darkness-1.png"]
+    images: ["assets/exercises/eye-darkness.png"]
   },
   {
     id: "move-the-shoulders",
     name: "Move the shoulders",
     description: "Rotate your shoulders in circular movements.",
     duration: 30,
-    images: ["assets/exercises/rotate-arm-1.png"]
+    images: ["assets/exercises/rotate-arm.png"]
   },
   {
     id: "chair-pushup",

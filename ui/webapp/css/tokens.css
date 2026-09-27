@@ -105,8 +105,9 @@
   --gray-6: rgb(242, 242, 247);
 
   --link: rgb(0, 122, 255);
-  --accent: var(--system-blue);
-  --accent-soft: rgba(0, 136, 255, 0.12);
+  /* App tint: health-green — the product is about rhythm and wellness. */
+  --accent: rgb(52, 199, 89);
+  --accent-soft: rgba(52, 199, 89, 0.14);
   --destructive: var(--system-red);
 
   /* Workrave timebar semantics → Apple system colours */
@@ -132,13 +133,17 @@
   --shadow-glass: inset 0 0 0 1px rgba(0, 0, 0, 0.05), 0 10px 40px rgba(0, 0, 0, 0.1);
   --shadow-dialog: inset 0 0 0 1px rgba(255, 255, 255, 0.2),
     0 8px 40px rgba(0, 0, 0, 0.25);
-  --focus-ring: 0 0 0 4px rgba(0, 136, 255, 0.5);
+  --focus-ring: 0 0 0 3.5px rgba(52, 199, 89, 0.45);
 
   /* ---- Glass materials (Music / App Store glass tokens) -------------- */
   --glass-bg: rgba(255, 255, 255, 0.72);
   --glass-bg-thick: rgba(255, 255, 255, 0.86);
   --glass-blur: blur(40px) saturate(1.8);
   --glass-stroke: rgba(255, 255, 255, 0.55);
+
+  /* Sidebar / toolbar materials (macOS) */
+  --sidebar-bg: rgba(246, 246, 248, 0.78);
+  --toolbar-bg: rgba(246, 246, 248, 0.82);
 
   /* ---- Layout --------------------------------------------------------- */
   --sidebar-w: 264px;
@@ -189,7 +194,8 @@
   --gray-6: rgb(28, 28, 30);
 
   --link: rgb(9, 132, 255);
-  --accent-soft: rgba(0, 145, 255, 0.18);
+  --accent: rgb(48, 209, 88);
+  --accent-soft: rgba(48, 209, 88, 0.18);
 
   --timebar-bg: var(--gray-3);
   --timebar-active: rgb(60, 211, 254);
@@ -209,11 +215,14 @@
     0 14px 14px rgba(0, 0, 0, 0.32);
   --shadow-glass: inset 0 0 0 1px rgba(255, 255, 255, 0.12), 0 10px 40px rgba(0, 0, 0, 0.5);
   --shadow-dialog: inset 0 0 0 1px rgba(255, 255, 255, 0.16), 0 8px 40px rgba(0, 0, 0, 0.55);
-  --focus-ring: 0 0 0 4px rgba(0, 145, 255, 0.55);
+  --focus-ring: 0 0 0 3.5px rgba(48, 209, 88, 0.5);
 
   --glass-bg: rgba(28, 28, 30, 0.72);
   --glass-bg-thick: rgba(28, 28, 30, 0.86);
   --glass-stroke: rgba(255, 255, 255, 0.14);
+
+  --sidebar-bg: rgba(38, 38, 42, 0.72);
+  --toolbar-bg: rgba(30, 30, 33, 0.78);
 }
 
 /* Auto mode: follow the system when no explicit override is stored */
@@ -237,10 +246,13 @@
     --hairline: rgba(255, 255, 255, 0.12);
     --system-blue: rgb(0, 145, 255);
     --link: rgb(9, 132, 255);
-    --accent-soft: rgba(0, 145, 255, 0.18);
+    --accent: rgb(48, 209, 88);
+    --accent-soft: rgba(48, 209, 88, 0.18);
     --glass-bg: rgba(28, 28, 30, 0.72);
     --glass-bg-thick: rgba(28, 28, 30, 0.86);
     --glass-stroke: rgba(255, 255, 255, 0.14);
+    --sidebar-bg: rgba(38, 38, 42, 0.72);
+    --toolbar-bg: rgba(30, 30, 33, 0.78);
     --shadow-card: 0 3px 20px rgba(0, 0, 0, 0.45);
     --shadow-glass: inset 0 0 0 1px rgba(255, 255, 255, 0.12), 0 10px 40px rgba(0, 0, 0, 0.5);
     color-scheme: dark;

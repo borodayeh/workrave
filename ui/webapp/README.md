@@ -1,9 +1,10 @@
-# Workrave Control Center — UI concept
+# Workrave for macOS — UI concept
 
-A next-generation web UI concept for [Workrave](https://workrave.org), the RSI
-prevention / break-reminder app. This is a working, interactive prototype of a
-“Control Center” experience: live timers, break overlay, statistics, exercises,
-settings — plus the design system that powers it.
+A next-generation interface concept for [Workrave](https://workrave.org), the
+RSI prevention / break-reminder app — designed as if Apple's own product team
+had built it: a native macOS window with a translucent sidebar, Screen
+Time–style rhythm charts, System Settings–style grouped preferences, and a
+break window that plays the **real Workrave exercise set**.
 
 ## Run it
 
@@ -15,77 +16,49 @@ python3 -m http.server 8080
 # open http://localhost:8080
 ```
 
-Everything is plain HTML/CSS/JS:
-
 ```
 ui/webapp/
-├── index.html        # app shell + inline SVG icon sprite
-├── css/tokens.css    # design tokens (colour, type, shape, motion, elevation)
-├── css/app.css       # components & layout (cards, lists, switches, segmented…)
-├── css/pages.css     # page compositions (dashboard, break stage, stats…)
-├── js/data.js        # demo timers, exercises, stats, token registries
-└── js/app.js         # behaviour: live simulation, navigation, theming
+├── index.html           # app shell: macOS window, sidebar, 5 pages, break overlay
+├── css/tokens.css       # design tokens (Apple HIG measurements)
+├── css/app.css          # window chrome, sidebar, rows, controls
+├── css/pages.css        # Today / Breaks / Exercises / History / break window
+├── js/data.js           # REAL exercise set + simulated timers & stats
+├── js/app.js            # behaviour incl. the exercise sequence player
+└── assets/              # REAL Workrave artwork (sheep, timers, exercise set)
 ```
+
+## What makes it feel native
+
+- **Real product content.** The exercise list, titles, descriptions, image
+  sequences and durations come verbatim from
+  `ui/data/exercises/exercises.xml.in`; the illustrations are the actual
+  250×250 exercise images shipped with the app (including left/right
+  mirroring). Break names and button labels (`Postpone`, `Skip`, `Take rest
+  break now`, `You need a rest break…`) are the real strings from the source.
+- **Restraint.** One app tint (health green), neutral surfaces, 0.5px
+  hairlines, SF type scale, macOS control geometry (26px segmented, 38×22
+  switch, capsule steppers, 28px toolbar buttons). Colour is used for
+  meaning, not decoration.
+- **The break player works.** *Take a Break* or *Preview Break* opens the
+  break window and plays a real exercise sequence — each step for its XML
+  duration, mirrored when the sequence says so, with the step indicator
+  filling in real time.
+- **Design tokens** are measured values from Apple's Human Interface
+  Guidelines and Apple's own web, collected in the open research of
+  [STiXzoOR/applecn](https://github.com/STiXzoOR/applecn) (system colours,
+  type scale, radius ladder, easings, shadows). `css/tokens.css` is the
+  single source of truth.
 
 ## Try this
 
-- The three break timers **really tick**. “Demo speed” (top bar) fast-forwards
-  30×/120× — let a timer hit zero and the full-screen break overlay fires.
-- **Theme** toggles light/dark; Settings → Appearance has Light/Dark/Auto and
-  six accent colours that retint the whole UI live.
-- Settings uses iOS-style grouped lists with working switches, steppers and
-  sliders. The segmented controls have a real sliding thumb.
-- **Design System** (sidebar) shows every token: palette, type scale, radius
-  ladder, shadows and a live control gallery.
-
-## Design system — “Aurora”
-
-Built after studying open design systems on GitHub (see *Inspiration* below).
-The backbone is Apple’s Human Interface Guidelines — not guessed, but the
-**measured values** collected in
-[STiXzoOR/applecn](https://github.com/STiXzoOR/applecn)
-(`docs/research/apple-design-system-reference.md`), which reads Apple’s
-published HIG tables plus Apple’s own web stylesheets (apps.apple.com,
-music.apple.com) and on-device UIKit/AppKit metrics.
-
-What is taken from where:
-
-| Layer      | Source | Values used |
-|------------|--------|-------------|
-| Colour     | HIG Color Specifications | 12 system colours light/dark, semantic roles (label-1…4, fill-1…4, grouped backgrounds, separator) |
-| Typography | HIG Typography Specifications | Large Title 34/41 → Caption 2 11/13, weights, SF system font stack |
-| Shape      | apps.apple.com tokens | radius ladder 5 / 8 / 10 / 12 / 17 / 20 / 24 + pill |
-| Controls   | UIKit / AppKit metrics | switch 51×31 (27 pt thumb), segmented 32 h capsule w/ sliding thumb + `0 3px 8px .12` selection shadow, buttons capsule 44 h, slider track 4 / thumb 26 |
-| Motion     | Apple web CSS | `cubic-bezier(.04,.04,.12,.96)` standard, `.52,.16,.24,1` sheet, 100 / 210 / 300 / 560 ms durations |
-| Elevation  | UIKit + Apple web | thumb, segment, card, multi-layer lift, glass inner-stroke + `0 10px 40px` |
-| Glass      | Music / App Store glass tokens | `blur(40px) saturate(1.8)`, translucent panels, inner hairline stroke |
-
-Workrave’s own timebar semantics (active / inactive / overdue, from
-`ui/app/toolkits/gtkmm/widgets/TimeBar.cc`) are mapped onto Apple system
-colours so the product identity survives the restyle.
-
-### Token examples (`css/tokens.css`)
-
-```css
---type-title-1: 600 28px/34px var(--font-sans);
---radius-xl: 17px;
---ease-standard: cubic-bezier(0.04, 0.04, 0.12, 0.96);
---shadow-thumb: 0 3px 8px rgba(0,0,0,.15), 0 3px 1px rgba(0,0,0,.06);
---system-blue: rgb(0, 136, 255);   /* dark: rgb(0, 145, 255) */
-```
-
-## Inspiration
-
-Design systems researched on GitHub before drawing anything:
-
-- **[Apple Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines)** — colour roles, type scale, spacing, motion philosophy, accessibility contrast rules.
-- **[STiXzoOR/applecn](https://github.com/STiXzoOR/applecn)** — HIG as a shadcn design system on Base UI; its research doc is the measurement source for the exact numbers in `tokens.css`.
-- **[radix-ui](https://github.com/radix-ui)** (primitives / colors / themes) — semantic token architecture and accessibility-first components.
-- **[shadcn-ui/ui](https://github.com/shadcn-ui/ui)** — “own your components” distribution model and clean component API conventions.
-- **[justinwetch/HIGAgentSkills](https://github.com/justinwetch/HIGAgentSkills)** & **[Shiaoming123/Apple-Design](https://github.com/Shiaoming123/Apple-Design)** — distilled HIG knowledge bases for agents.
+- Timers tick live in the Today page and the sidebar status.
+- Press **D** to cycle demo speed 1× / 30× / 120× — at speed, a break fires
+  automatically when a timer expires.
+- **Esc** closes the break window; **Next Exercise** advances the sequence.
+- Settings page rows all work: switches, steppers, volume slider, and the
+  Light/Dark/Auto appearance control (kept in sync with the toolbar).
 
 ## Status
 
-Prototype / design exploration. It demonstrates the direction a redesigned
-Workrave desktop UI (GTK/Qt) could take; it is not wired to the real core
-engine or DBus. Timers, charts and settings are simulated.
+Prototype / design exploration, not wired to the core engine or DBus.
+Verified with a 32-assertion jsdom smoke test.

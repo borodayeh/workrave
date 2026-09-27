@@ -1,31 +1,44 @@
-/* Workrave “Aurora” — app behaviour */
+/* Workrave — app behaviour */
 (function () {
   "use strict";
 
   const $ = (sel, root) => (root || document).querySelector(sel);
   const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
 
-  /* ================= Clock & demo speed ================= */
+  /* ================= Clock & simulated time =================
+     Demo speed: press D to cycle 1× / 30× / 120× (no UI chrome —
+     this is a prototype). The break overlay fires when a timer expires. */
 
-  const clockEl = $("#clock");
   let speed = 1;
 
-  function tickClock() {
-    const now = new Date();
-    clockEl.textContent = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  function fmt(sec) {
+    sec = Math.max(0, Math.round(sec));
+    const h = Math.floor(sec / 3600);
+    const m = Math.floor((sec % 3600) / 60);
+    const s = sec % 60;
+    const mm = String(m).padStart(2, "0");
+    const ss = String(s).padStart(2, "0");
+    return h > 0 ? `${h}:${mm}:${ss}` : `${mm}:${ss}`;
   }
-  tickClock();
-  setInterval(tickClock, 1000);
+
+  function fmtMin(sec) {
+    const h = Math.floor(sec / 3600);
+    const m = Math.round((sec % 3600) / 60);
+    return h > 0 ? `${h}h ${m}m` : `${m}m`;
+  }
+
+  function fmtClock(date) {
+    return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  }
 
   /* ================= Navigation ================= */
 
   const titles = {
-    dashboard: "Dashboard",
+    today: "Today",
     breaks: "Breaks",
-    stats: "Statistics",
     exercises: "Exercises",
+    history: "History",
     settings: "Settings",
-    system: "Design System",
   };
 
   $$(".nav-item").forEach((btn) => {
@@ -35,10 +48,9 @@
       const page = btn.dataset.page;
       $$(".page").forEach((p) => p.classList.remove("is-active"));
       $("#page-" + page).classList.add("is-active");
-      $("#page-title").textContent = titles[page] || "";
-      // segmented thumbs of a freshly shown page need a real layout pass
+      $("#toolbar-title").textContent = titles[page] || "";
       requestAnimationFrame(() => $$(".segmented").forEach(moveThumb));
-      if (page === "stats") animateStats();
+      if (page === "history") animateHistory();
     });
   });
 
@@ -59,22 +71,24 @@
       $$("button[role=tab]", seg).forEach((b) => b.setAttribute("aria-selected", "false"));
       btn.setAttribute("aria-selected", "true");
       moveThumb(seg);
+      if (seg.id === "mode-seg" && btn.dataset.mode) {
+        const names = { normal: "Normal", quiet: "Quiet", suspended: "Suspended" };
+        $("#mode-name").textContent = names[btn.dataset.mode];
+        $("#status-mode").textContent =
+          btn.dataset.mode === "normal" ? "Active" : names[btn.dataset.mode];
+      }
     });
-    // initial thumb once layout settles
     requestAnimationFrame(() => moveThumb(seg));
   });
   window.addEventListener("resize", () => $$(".segmented").forEach(moveThumb));
 
-  /* ================= Switches ================= */
+  /* ================= Switches, sliders, steppers ================= */
 
   $$(".switch").forEach((sw) => {
     sw.addEventListener("click", () => {
-      const on = sw.getAttribute("aria-checked") === "true";
-      sw.setAttribute("aria-checked", String(!on));
+      sw.setAttribute("aria-checked", String(sw.getAttribute("aria-checked") !== "true"));
     });
   });
-
-  /* ================= Sliders ================= */
 
   function paintSlider(slider) {
     const min = +slider.min || 0;
@@ -88,21 +102,12 @@
     sl.addEventListener("input", () => paintSlider(sl));
   });
 
-  const postponeSlider = $("#postpone-slider");
-  if (postponeSlider) {
-    postponeSlider.addEventListener("input", () => {
-      $("#postpone-val").textContent = postponeSlider.value;
-    });
-  }
-
   const volumeSlider = $("#volume-slider");
   if (volumeSlider) {
     volumeSlider.addEventListener("input", () => {
       $("#volume-val").textContent = volumeSlider.value;
     });
   }
-
-  /* ================= Steppers ================= */
 
   $$(".stepper").forEach((st) => {
     const min = +st.dataset.min;
@@ -115,7 +120,7 @@
     valEl.className = "val";
     const minus = document.createElement("button");
     minus.type = "button";
-    minus.textContent = "−";
+    minus.textContent = "–";
     minus.setAttribute("aria-label", "Decrease");
     const plus = document.createElement("button");
     plus.type = "button";
@@ -144,467 +149,324 @@
 
   function applyTheme(theme) {
     root.setAttribute("data-theme", theme);
-    const seg = $("#theme-seg");
-    if (seg) {
+    ["theme-seg", "theme-seg-2"].forEach((id) => {
+      const seg = $("#" + id);
+      if (!seg) return;
       $$("button", seg).forEach((b) =>
         b.setAttribute("aria-selected", String(b.dataset.theme === theme))
       );
       requestAnimationFrame(() => moveThumb(seg));
+    });
+  }
+
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-theme]");
+    if (btn) applyTheme(btn.dataset.theme);
+  });
+
+  /* ================= Today: live timers ================= */
+
+  const heroMin = $("#hero-min");
+  const heroSec = $("#hero-sec");
+  const heroFill = $("#hero-fill");
+  const statusNext = $("#status-next");
+
+  function renderTimers() {
+    const t = WR.timers;
+
+    // hero — rest break countdown
+    const restRem = t.rest.limit - t.rest.elapsed;
+    if (restRem > 0) {
+      const m = Math.floor(restRem / 60);
+      const s = Math.floor(restRem % 60);
+      heroMin.textContent = String(m).padStart(2, "0");
+      heroSec.textContent = String(s).padStart(2, "0");
+    } else {
+      heroMin.textContent = "00";
+      heroSec.textContent = "00";
+    }
+    heroFill.style.width = Math.min(100, (t.rest.elapsed / t.rest.limit) * 100) + "%";
+    statusNext.textContent = restRem > 0 ? fmt(restRem) : "now";
+
+    // window text: "14:02 – 14:47"
+    const now = new Date();
+    const start = new Date(now.getTime() - t.rest.elapsed * 1000);
+    const end = new Date(now.getTime() + Math.max(0, restRem) * 1000);
+    $("#hero-window").textContent = `${fmtClock(start)} – ${fmtClock(end)}`;
+
+    // rows
+    const microRem = t.micro.limit - t.micro.elapsed;
+    $("#micro-in").textContent = microRem > 0 ? fmt(microRem) : "now";
+    $("#micro-fill").style.width = Math.min(100, (t.micro.elapsed / t.micro.limit) * 100) + "%";
+
+    $("#rest-in").textContent = restRem > 0 ? fmt(restRem) : "now";
+    $("#rest-fill").style.width = Math.min(100, (t.rest.elapsed / t.rest.limit) * 100) + "%";
+
+    const dailyLeft = t.daily.limit - t.daily.elapsed;
+    $("#daily-left").textContent = dailyLeft > 0 ? fmtMin(dailyLeft) : "0m";
+    $("#daily-fill").style.width = Math.min(100, (t.daily.elapsed / t.daily.limit) * 100) + "%";
+  }
+
+  function renderDate() {
+    const el = $("#today-date");
+    if (el) {
+      el.textContent = new Date().toLocaleDateString("en-US", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+      });
     }
   }
 
-  const themeSeg = $("#theme-seg");
-  if (themeSeg) {
-    themeSeg.addEventListener("click", (e) => {
-      const btn = e.target.closest("button[data-theme]");
-      if (btn) applyTheme(btn.dataset.theme);
-    });
-  }
-
-  const themeToggle = $("#theme-toggle");
-  if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
-      const cur = root.getAttribute("data-theme") || "light";
-      applyTheme(cur === "dark" ? "light" : "dark");
-    });
-  }
-
-  /* ================= Accent swatches ================= */
-
-  $$("#accent-swatches .swatch").forEach((sw) => {
-    sw.addEventListener("click", () => {
-      $$("#accent-swatches .swatch").forEach((s) => s.setAttribute("aria-pressed", "false"));
-      sw.setAttribute("aria-pressed", "true");
-      const c = sw.dataset.accent;
-      root.style.setProperty("--accent", c);
-      root.style.setProperty("--accent-soft", `color-mix(in srgb, ${c} 14%, transparent)`);
-    });
-  });
-
-  /* ================= Mode ================= */
-
-  const modeNames = { normal: "Normal", quiet: "Quiet", suspended: "Suspended" };
-  const modeIcons = { normal: "i-bolt", quiet: "i-moon", suspended: "i-pause" };
-  const modeSeg = $("#mode-seg");
-
-  if (modeSeg) {
-    modeSeg.addEventListener("click", (e) => {
-      const btn = e.target.closest("button[data-mode]");
-      if (!btn) return;
-      const mode = btn.dataset.mode;
-      $("#mode-name").textContent = modeNames[mode];
-      const orb = $("#mode-orb");
-      orb.dataset.mode = mode;
-      $("use", orb).setAttribute("href", "#" + modeIcons[mode]);
-    });
-  }
-
-  /* ================= Sparkline ================= */
-
-  function drawSparkline() {
-    const svg = $("#sparkline");
-    if (!svg) return;
-    const pts = [18, 24, 20, 34, 30, 44, 52, 40, 36, 48, 56, 50, 42, 46, 38, 44, 52, 60, 54, 48];
-    const w = 280;
-    const h = 72;
-    const max = Math.max(...pts) * 1.25;
-    const step = w / (pts.length - 1);
-    let d = "";
-    pts.forEach((p, i) => {
-      const x = i * step;
-      const y = h - (p / max) * (h - 8) - 4;
-      d += (i === 0 ? "M" : "L") + x.toFixed(1) + " " + y.toFixed(1) + " ";
-    });
-    $(".line", svg).setAttribute("d", d.trim());
-    $(".area", svg).setAttribute("d", d.trim() + ` L ${w} ${h} L 0 ${h} Z`);
-  }
-  drawSparkline();
-
-  /* ================= Timer cards ================= */
-
-  function fmt(sec) {
-    sec = Math.max(0, Math.round(sec));
-    const h = Math.floor(sec / 3600);
-    const m = Math.floor((sec % 3600) / 60);
-    const s = sec % 60;
-    const mm = String(m).padStart(2, "0");
-    const ss = String(s).padStart(2, "0");
-    return h > 0 ? `${h}:${mm}:${ss}` : `${mm}:${ss}`;
-  }
-
-  const cardsRoot = $("#timer-cards");
-  const cardEls = {};
-
-  WR.timers.forEach((t) => {
-    const el = document.createElement("div");
-    el.className = "card timer-card";
-    el.style.setProperty("--tc", t.color);
-    el.innerHTML = `
-      <div class="timer-head">
-        <div class="timer-icon"><svg><use href="#${t.icon}"/></svg></div>
-        <div>
-          <h3>${t.name}</h3>
-          <div class="limit">${t.subtitle} · every ${fmt(t.limit)}</div>
-        </div>
-      </div>
-      <div class="timer-figures">
-        <div class="timer-countdown" data-fld="count">—</div>
-        <div class="timer-elapsed" data-fld="elapsed">—</div>
-      </div>
-      <div class="timebar" data-fld="bar">
-        <div class="seg seg-primary"></div>
-        <div class="seg seg-secondary"></div>
-      </div>
-      <div class="timer-legend">
-        <span class="chip" style="color:var(--label-2)"><span class="dot" style="background:${t.color}"></span>active</span>
-        <span class="chip chip-green" data-fld="state">running</span>
-      </div>`;
-    cardsRoot.appendChild(el);
-    cardEls[t.id] = el;
-  });
-
-  /* ================= Ring (next rest break) ================= */
-
-  const ringBar = $("#ring-bar");
-  const ringGlow = $("#ring-glow");
-  const RING_R = 92;
-  const RING_C = 2 * Math.PI * RING_R;
-
-  [ringBar, ringGlow].forEach((c) => {
-    if (!c) return;
-    c.style.strokeDasharray = RING_C;
-    c.style.strokeDashoffset = RING_C;
-  });
-
-  /* ================= Break overlay ================= */
+  /* ================= Break overlay — real exercise player ================= */
 
   const overlay = $("#break-overlay");
-  const overlayRingBar = $("#overlay-ring-bar");
-  const OVERLAY_R = 70;
-  const OVERLAY_C = 2 * Math.PI * OVERLAY_R;
-  if (overlayRingBar) {
-    overlayRingBar.style.strokeDasharray = OVERLAY_C;
-    overlayRingBar.style.strokeDashoffset = OVERLAY_C;
+  let player = {
+    exIndex: 0,
+    seqPos: 0,
+    seqElapsed: 0, // seconds shown for current image
+    remaining: 0,
+    running: false,
+    timer: null,
+  };
+
+  function currentImage() {
+    const ex = WR.exercises[player.exIndex];
+    let pos = player.seqPos % ex.images.length;
+    return ex.images[pos];
   }
 
-  let overlayRemaining = 0;
-  let overlayTotal = 0;
+  function renderPlayer() {
+    const ex = WR.exercises[player.exIndex];
+    const img = currentImage();
+    const el = $("#brk-img");
+    el.src = img.src;
+    el.alt = ex.title;
+    el.classList.toggle("mirrored", !!img.mirror);
 
-  function openOverlay(seconds) {
-    overlayRemaining = seconds;
-    overlayTotal = seconds;
-    overlay.classList.add("is-open");
-    $("#overlay-done").focus();
-    updateOverlay();
-  }
+    $("#brk-ex-title").textContent = ex.title;
+    $("#brk-ex-desc").textContent = ex.desc;
+    $("#brk-count").textContent = fmt(player.remaining);
 
-  function closeOverlay() {
-    overlay.classList.remove("is-open");
-  }
-
-  function updateOverlay() {
-    $("#overlay-count").textContent = fmt(overlayRemaining);
-    const frac = overlayTotal > 0 ? overlayRemaining / overlayTotal : 0;
-    if (overlayRingBar) {
-      overlayRingBar.style.strokeDashoffset = OVERLAY_C * (1 - frac);
-    }
-  }
-
-  $("#overlay-done").addEventListener("click", closeOverlay);
-  $("#overlay-postpone").addEventListener("click", closeOverlay);
-  overlay.addEventListener("click", (e) => {
-    if (e.target === overlay) closeOverlay();
-  });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeOverlay();
-  });
-
-  $("#btn-break-now").addEventListener("click", () => {
-    const rest = WR.timers.find((t) => t.id === "rest-break");
-    openOverlay(rest.breakLen);
-    rest.elapsed = 0;
-  });
-
-  $("#btn-postpone").addEventListener("click", () => {
-    const rest = WR.timers.find((t) => t.id === "rest-break");
-    rest.elapsed = Math.max(0, rest.elapsed - 5 * 60);
-    pulse($("#btn-postpone"));
-  });
-
-  function pulse(el) {
-    el.animate(
-      [
-        { transform: "scale(1)" },
-        { transform: "scale(0.94)" },
-        { transform: "scale(1)" },
-      ],
-      { duration: 260, easing: "cubic-bezier(.04,.04,.12,.96)" }
-    );
-  }
-
-  /* ================= Demo speed ================= */
-
-  const speedSeg = $("#speed-seg");
-  if (speedSeg) {
-    speedSeg.addEventListener("click", (e) => {
-      const btn = e.target.closest("button[data-speed]");
-      if (btn) speed = +btn.dataset.speed;
+    // step indicators for the image sequence
+    const steps = $("#brk-steps");
+    steps.innerHTML = "";
+    ex.images.forEach((_, i) => {
+      const s = document.createElement("div");
+      s.className = "step";
+      if (i < player.seqPos % ex.images.length) s.classList.add("done");
+      if (i === player.seqPos % ex.images.length) {
+        s.classList.add("active");
+        s.style.setProperty("--step-dur", img.dur + "s");
+      }
+      steps.appendChild(s);
     });
   }
+
+  function openBreak(kind) {
+    const t = WR.timers[kind === "micro" ? "micro" : "rest"];
+    player.remaining = t.breakLen || 60;
+    player.exIndex = Math.floor(Math.random() * WR.exercises.length);
+    player.seqPos = 0;
+    player.seqElapsed = 0;
+    player.running = true;
+
+    $("#brk-kicker").textContent = kind === "micro" ? "Micro-break" : "Rest break";
+    $("#brk-title").textContent =
+      kind === "micro" ? "Time for a micro-break?" : "You need a rest break…";
+
+    overlay.classList.add("is-open");
+    renderPlayer();
+
+    clearInterval(player.timer);
+    player.timer = setInterval(tickPlayer, 1000);
+  }
+
+  function closeBreak() {
+    overlay.classList.remove("is-open");
+    player.running = false;
+    clearInterval(player.timer);
+    const t = WR.timers;
+    t.micro.elapsed = 0;
+    t.rest.elapsed = 0;
+  }
+
+  function tickPlayer() {
+    player.remaining -= 1;
+    const ex = WR.exercises[player.exIndex];
+    player.seqElapsed += 1;
+    const img = currentImage();
+    if (player.seqElapsed >= img.dur) {
+      player.seqElapsed = 0;
+      player.seqPos += 1;
+      if (player.seqPos >= ex.images.length) {
+        player.seqPos = 0; // loop the sequence until the break ends
+      }
+      renderPlayer();
+    } else {
+      $("#brk-count").textContent = fmt(player.remaining);
+    }
+    if (player.remaining <= 0) closeBreak();
+  }
+
+  function nextExercise() {
+    player.exIndex = (player.exIndex + 1) % WR.exercises.length;
+    player.seqPos = 0;
+    player.seqElapsed = 0;
+    renderPlayer();
+  }
+
+  $("#btn-break-now").addEventListener("click", () => openBreak("rest"));
+  $("#btn-preview-break").addEventListener("click", () => openBreak("rest"));
+  $("#brk-next").addEventListener("click", nextExercise);
+  $("#brk-postpone").addEventListener("click", closeBreak);
+  $("#brk-skip").addEventListener("click", closeBreak);
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) closeBreak();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeBreak();
+    if ((e.key === "d" || e.key === "D") && !e.metaKey && !e.ctrlKey) {
+      speed = speed === 1 ? 30 : speed === 30 ? 120 : 1;
+    }
+  });
 
   /* ================= Simulation loop ================= */
 
   let last = performance.now();
 
   function frame(now) {
-    const dtReal = (now - last) / 1000;
+    const dt = ((now - last) / 1000) * speed;
     last = now;
-    const dt = dtReal * speed;
 
-    // timers
-    WR.timers.forEach((t) => {
-      if (!t.enabled) return;
-      t.elapsed += dt;
-      if (t.id !== "daily-limit" && t.elapsed >= t.limit + t.breakLen) {
-        t.elapsed = 0;
+    const t = WR.timers;
+    if (!player.running) {
+      t.micro.elapsed += dt;
+      t.rest.elapsed += dt;
+      t.daily.elapsed += dt;
+
+      if (t.micro.elapsed >= t.micro.limit + t.micro.breakLen) t.micro.elapsed = 0;
+      if (t.rest.elapsed >= t.rest.limit + t.rest.breakLen) t.rest.elapsed = 0;
+
+      // fire a break when a timer expires
+      if (t.micro.elapsed >= t.micro.limit && t.micro.breakLen > 0 && t.micro.elapsed - dt < t.micro.limit) {
+        openBreak("micro");
+      } else if (t.rest.elapsed >= t.rest.limit && t.rest.elapsed - dt < t.rest.limit) {
+        openBreak("rest");
       }
-
-      const el = cardEls[t.id];
-      if (!el) return;
-      const remaining = t.limit - t.elapsed;
-
-      // countdown
-      const countEl = $('[data-fld="count"]', el);
-      if (t.id === "daily-limit") {
-        countEl.textContent = fmt(t.limit - t.elapsed);
-        $('[data-fld="elapsed"]', el).textContent = `${fmt(t.elapsed)} used`;
-      } else if (remaining > 0) {
-        countEl.textContent = fmt(remaining);
-        $('[data-fld="elapsed"]', el).textContent = `${fmt(t.elapsed)} active`;
-      } else {
-        countEl.textContent = fmt(-remaining) + " overdue";
-        $('[data-fld="elapsed"]', el).textContent = "break due";
-      }
-
-      // bars (Workrave timebar semantics)
-      const bar = $('[data-fld="bar"]', el);
-      const primary = $(".seg-primary", bar);
-      const secondary = $(".seg-secondary", bar);
-      primary.style.width = Math.min(100, (t.elapsed / t.limit) * 100) + "%";
-      secondary.style.width =
-        remaining <= 0 && t.breakLen > 0
-          ? Math.min(100, ((-remaining) / t.breakLen) * 100) + "%"
-          : "0%";
-      bar.classList.toggle("overdue", remaining <= 0);
-
-      const stateChip = $('[data-fld="state"]', el);
-      if (remaining <= 0) {
-        stateChip.textContent = "overdue";
-        stateChip.className = "chip chip-orange";
-      } else if (remaining < t.limit * 0.2) {
-        stateChip.textContent = "imminent";
-        stateChip.className = "chip chip-blue";
-      } else {
-        stateChip.textContent = "running";
-        stateChip.className = "chip chip-green";
-      }
-    });
-
-    // hero ring driven by the rest-break timer
-    const rest = WR.timers.find((t) => t.id === "rest-break");
-    const rem = rest.limit - rest.elapsed;
-    const frac = Math.max(0, Math.min(1, rem / rest.limit));
-    if (ringBar) {
-      ringBar.style.strokeDashoffset = RING_C * (1 - frac);
-      ringGlow.style.strokeDashoffset = RING_C * (1 - frac);
-      $("#ring-count").textContent = rem > 0 ? fmt(rem) : fmt(-rem);
-      $(".ring-label .sub").textContent = rem > 0 ? "until rest break" : "break overdue";
     }
 
-    // fire the overlay when a break becomes due (not for the daily limit)
-    if (rem <= 0 && !overlay.classList.contains("is-open") && speed > 1) {
-      openOverlay(rest.breakLen);
-    }
-
-    if (overlay.classList.contains("is-open")) {
-      overlayRemaining -= dt;
-      if (overlayRemaining <= 0) {
-        overlayRemaining = 0;
-        closeOverlay();
-        rest.elapsed = 0;
-      }
-      updateOverlay();
-    }
-
+    renderTimers();
     requestAnimationFrame(frame);
   }
-  requestAnimationFrame(frame);
 
-  /* ================= Stats page ================= */
+  /* ================= Today: hour chart ================= */
 
-  function buildBarChart() {
-    const rootEl = $("#bar-chart");
-    if (!rootEl || rootEl.childElementCount) return;
-    const max = Math.max(...WR.week.map((d) => d.active + d.rest)) * 1.08;
-    WR.week.forEach((d, i) => {
+  function buildHourChart() {
+    const chart = $("#hour-chart");
+    if (!chart || chart.childElementCount) return;
+    const max = Math.max(...WR.hours.map((h) => h.active + h.brk)) * 1.1;
+    WR.hours.forEach((h, i) => {
       const col = document.createElement("div");
-      col.className = "bar-col";
-      const total = d.active + d.rest;
+      col.className = "hour-col";
+      col.title = `${h.active + h.brk} min`;
       col.innerHTML = `
-        <div class="bar-stack" style="--h:${(total / max) * 100}%; --d:${i * 70}ms">
-          <div class="bar-stack rest-seg" style="--h:100%; height:${(d.rest / total) * 100}%"></div>
-        </div>
-        <div class="lbl">${d.day}</div>`;
-      rootEl.appendChild(col);
+        <div class="seg-a" style="--ha:${((h.active / max) * 100).toFixed(1)}%; --d:${i * 45}ms"></div>
+        <div class="seg-b" style="--hb:${((h.brk / max) * 100).toFixed(1)}%; --d:${i * 45}ms"></div>`;
+      chart.appendChild(col);
     });
   }
 
-  function animateStats() {
-    buildBarChart();
-    const donut = $("#donut-value");
-    if (donut) {
-      const C = 2 * Math.PI * 48;
-      donut.style.strokeDasharray = C;
-      donut.style.strokeDashoffset = C;
-      requestAnimationFrame(() => {
-        donut.style.strokeDashoffset = C * (1 - 0.76);
-      });
-    }
+  /* ================= History ================= */
+
+  function buildWeekChart() {
+    const chart = $("#week-chart");
+    if (!chart || chart.childElementCount) return;
+    const max = Math.max(...WR.week.map((d) => d.active + d.brk)) * 1.12;
+    WR.week.forEach((d, i) => {
+      const col = document.createElement("div");
+      col.className = "week-col";
+      col.innerHTML = `
+        <div class="w-break" style="--wb:${((d.brk / max) * 100).toFixed(1)}%; --d:${i * 60}ms"></div>
+        <div class="w-active" style="--wa:${((d.active / max) * 100).toFixed(1)}%; --d:${i * 60}ms"></div>`;
+      chart.appendChild(col);
+    });
+  }
+
+  function buildDayRows() {
+    const list = $("#day-rows");
+    if (!list || list.childElementCount) return;
+    const max = Math.max(...WR.week.map((d) => d.active + d.brk)) * 1.12;
+    WR.week.forEach((d) => {
+      const row = document.createElement("div");
+      row.className = "day-row";
+      const total = d.active + d.brk;
+      row.innerHTML = `
+        <div class="day-name">${d.day}</div>
+        <div class="day-track" style="max-width:${((total / max) * 100).toFixed(1)}%">
+          <div class="a" style="flex:${d.active}"></div>
+          <div class="b" style="flex:${d.brk}"></div>
+        </div>
+        <div class="day-val">${Math.floor(d.active / 60)}h ${d.active % 60}m</div>`;
+      list.appendChild(row);
+    });
+  }
+
+  function animateHistory() {
+    buildWeekChart();
+    buildDayRows();
   }
 
   /* ================= Exercises ================= */
 
-  function renderExercises(cat) {
-    const grid = $("#exercise-grid");
-    grid.innerHTML = "";
+  function renderExercises(filter) {
+    const list = $("#exercise-list");
+    if (!list) return;
+    const q = (filter || "").trim().toLowerCase();
+    list.innerHTML = "";
     WR.exercises
-      .filter((ex) => cat === "all" || ex.cat === cat)
+      .filter((ex) => !q || ex.title.toLowerCase().includes(q) || ex.desc.toLowerCase().includes(q))
       .forEach((ex, i) => {
+        const idx = WR.exercises.indexOf(ex);
         const card = document.createElement("article");
         card.className = "exercise-card";
-        card.style.animation = `page-in var(--duration-nav) var(--ease-nav) both ${i * 45}ms`;
+        card.style.animation = `page-in var(--duration-nav) var(--ease-nav) both ${i * 35}ms`;
         card.innerHTML = `
-          <div class="exercise-art" style="background:${ex.grad}">
-            <svg><use href="#${ex.icon}"/></svg>
-          </div>
-          <div class="exercise-body">
-            <h4>${ex.title}</h4>
-            <p>${ex.desc}</p>
-            <div class="exercise-meta">
-              <span class="chip">${ex.dur}</span>
-              <span class="chip">${ex.reps}</span>
-              <div class="spacer"></div>
-              <button class="btn btn-secondary btn-sm">Add</button>
+          <img src="${ex.images[0].src}" alt="${ex.title}" loading="lazy">
+          <div class="ex-body">
+            <div class="ex-title">${ex.title}</div>
+            <p class="ex-desc">${ex.desc}</p>
+            <div class="ex-meta">
+              <span class="pill">${Math.floor(ex.total / 60) > 0 ? Math.floor(ex.total / 60) + " min" : ex.total + " s"}</span>
+              <span>${ex.images.length} step${ex.images.length > 1 ? "s" : ""}</span>
             </div>
-          </div>`;
-        grid.appendChild(card);
+          </div>
+          <button class="btn btn-secondary ex-play" data-ex="${idx}">Preview</button>`;
+        list.appendChild(card);
       });
   }
 
-  const filterRoot = $("#exercise-filter");
-  if (filterRoot) {
-    filterRoot.addEventListener("click", (e) => {
-      const chip = e.target.closest("button[data-cat]");
-      if (!chip) return;
-      $$("button[data-cat]", filterRoot).forEach((c) => {
-        c.classList.remove("chip-blue");
-        c.setAttribute("aria-pressed", "false");
-      });
-      chip.classList.add("chip-blue");
-      chip.setAttribute("aria-pressed", "true");
-      renderExercises(chip.dataset.cat);
-    });
-    renderExercises("all");
+  const search = $("#ex-search");
+  if (search) {
+    search.addEventListener("input", () => renderExercises(search.value));
+    renderExercises("");
   }
 
-  /* ================= Design system page ================= */
-
-  function renderPalette() {
-    const pal = $("#palette");
-    if (!pal || pal.childElementCount) return;
-    WR.systemColors.forEach(([name, light, dark]) => {
-      const sw = document.createElement("div");
-      sw.className = "sw";
-      sw.style.background = `rgb(${light})`;
-      sw.style.color = ["Yellow", "Green", "Mint", "Cyan"].includes(name) ? "#000" : "#fff";
-      sw.innerHTML = `${name}<br><span style="font-weight:400; opacity:.85">${light}</span>`;
-      pal.appendChild(sw);
-    });
-  }
-
-  function renderTypeScale() {
-    const ts = $("#type-scale");
-    if (!ts || ts.childElementCount) return;
-    WR.typeScale.forEach(([name, font]) => {
-      const row = document.createElement("div");
-      row.className = "type-row";
-      const sample = document.createElement("div");
-      sample.style.font = font.includes("34px")
-        ? "var(--type-large-title)"
-        : font.includes("28px")
-        ? "var(--type-title-1)"
-        : font.includes("22px")
-        ? "var(--type-title-2)"
-        : font.includes("20px")
-        ? "var(--type-title-3)"
-        : font.includes("17px") && font.includes("600")
-        ? "var(--type-headline)"
-        : font.includes("17px")
-        ? "var(--type-body)"
-        : font.includes("16px")
-        ? "var(--type-callout)"
-        : font.includes("15px")
-        ? "var(--type-subhead)"
-        : font.includes("13px")
-        ? "var(--type-footnote)"
-        : font.includes("12px")
-        ? "var(--type-caption)"
-        : "var(--type-caption-2)";
-      sample.textContent = "The quick brown fox";
-      const spec = document.createElement("div");
-      spec.className = "spec";
-      spec.textContent = `${name} · ${font}`;
-      row.append(sample, spec);
-      ts.appendChild(row);
-    });
-  }
-
-  function renderRadii() {
-    const rs = $("#radius-scale");
-    if (!rs || rs.childElementCount) return;
-    WR.radii.forEach(([label, r]) => {
-      const item = document.createElement("div");
-      item.className = "rs";
-      item.innerHTML = `<div class="box" style="border-radius:${Math.min(r, 42)}px"></div>${label}`;
-      rs.appendChild(item);
-    });
-  }
-
-  function renderShadows() {
-    const ss = $("#shadow-scale");
-    if (!ss || ss.childElementCount) return;
-    WR.shadows.forEach(([label, shadow]) => {
-      const item = document.createElement("div");
-      item.className = "sh";
-      item.style.boxShadow = `var(${shadow.slice(4, -1)})`;
-      item.textContent = label;
-      ss.appendChild(item);
-    });
-  }
-
-  // build DS page lazily when first shown
-  const systemNav = $('.nav-item[data-page="system"]');
-  if (systemNav) {
-    systemNav.addEventListener("click", () => {
-      renderPalette();
-      renderTypeScale();
-      renderRadii();
-      renderShadows();
-    });
-  }
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-ex]");
+    if (!btn) return;
+    openBreak("rest");
+    player.exIndex = +btn.dataset.ex;
+    player.seqPos = 0;
+    player.seqElapsed = 0;
+    renderPlayer();
+  });
 
   /* ================= Init ================= */
 
+  renderDate();
   applyTheme("light");
-  animateStats();
+  buildHourChart();
+  renderTimers();
+  requestAnimationFrame(frame);
 })();

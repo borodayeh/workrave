@@ -1,188 +1,131 @@
-/* Workrave “Aurora” — demo data & design-system registries */
+/* Workrave — demo data.
+   The exercise set below is the real, built-in Workrave exercise data from
+   ui/data/exercises/exercises.xml.in (titles, descriptions, image sequences,
+   durations and mirroring), shipped with the desktop app. */
 
 window.WR = window.WR || {};
 
-/* Simulated timer state. `elapsed` advances with the demo clock. */
-WR.timers = [
-  {
-    id: "micro-break",
-    name: "Micro-break",
-    subtitle: "Short pause",
-    icon: "i-bolt",
-    color: "var(--micro)",
-    limit: 5 * 60, // seconds until break
-    breakLen: 20, // seconds of break
-    elapsed: 2 * 60 + 41,
-    idle: 0,
-    enabled: true,
-  },
-  {
-    id: "rest-break",
-    name: "Rest break",
-    subtitle: "Real movement",
-    icon: "i-cup",
-    color: "var(--rest)",
-    limit: 45 * 60,
-    breakLen: 5 * 60,
-    elapsed: 32 * 60 + 19,
-    idle: 0,
-    enabled: true,
-  },
-  {
-    id: "daily-limit",
-    name: "Daily limit",
-    subtitle: "Total activity",
-    icon: "i-chart",
-    color: "var(--daily)",
-    limit: 6 * 60 * 60,
-    breakLen: 0,
-    elapsed: 4 * 60 * 60 + 36 * 60,
-    idle: 0,
-    enabled: true,
-  },
-];
+const A = "assets/exercises/";
 
+/* Real Workrave exercises. `total` = sequence duration in seconds;
+   images are shown in order for `dur` seconds each and the sequence
+   repeats to fill `total` (mirroring the desktop exercise player). */
 WR.exercises = [
   {
-    cat: "neck",
-    title: "Neck rolls",
-    desc: "Slow half-circles, ear toward shoulder. Never force the range.",
-    dur: "30 s",
-    reps: "×3",
-    grad: "linear-gradient(145deg,#00c8b3,#0088ff)",
-    icon: "i-stretch",
+    title: "Shoulder-arm stretch",
+    desc: "Keep one arm horizontally stretched in front of your chest. Push this arm with your other arm towards you until you feel a mild tension in your shoulder. Hold this position briefly, and repeat the exercise for your other arm.",
+    total: 40,
+    images: [
+      { src: A + "shoulder-arm-stretch.png", dur: 10, mirror: false },
+      { src: A + "shoulder-arm-stretch.png", dur: 10, mirror: true },
+    ],
   },
   {
-    cat: "shoulders",
-    title: "Shoulder shrugs",
-    desc: "Lift, hold two seconds, release. Let the tension melt on the way down.",
-    dur: "20 s",
-    reps: "×5",
-    grad: "linear-gradient(145deg,#6155f5,#cb30e0)",
-    icon: "i-stretch",
+    title: "Finger stretch",
+    desc: "Separate and stretch your fingers until a mild tension is felt, and hold this for 10 seconds. Relax, then bend your fingers at the knuckles, and hold again for 10 seconds. Repeat this exercise once more.",
+    total: 40,
+    images: [
+      { src: A + "finger-stretch-1.png", dur: 10, mirror: false },
+      { src: A + "finger-stretch-2.png", dur: 10, mirror: false },
+    ],
   },
   {
-    cat: "eyes",
-    title: "20-20-20 gaze",
-    desc: "Every 20 minutes, look 20 feet away for 20 seconds. Blink slowly.",
-    dur: "20 s",
-    reps: "×1",
-    grad: "linear-gradient(145deg,#00c0e8,#0088ff)",
-    icon: "i-eye",
+    title: "Neck tilt stretch",
+    desc: "Start with your head in a comfortable straight position. Then, slowly tilt your head to your right shoulder to gently stretch the muscles on the left side of your neck. Hold this position for 5 seconds. Then, tilt your head to the left side to stretch your other side. Do this twice for each side.",
+    total: 30,
+    images: [
+      { src: A + "neck-tilt-stretch-1.png", dur: 5, mirror: false },
+      { src: A + "neck-tilt-stretch-2.png", dur: 5, mirror: false },
+    ],
   },
   {
-    cat: "hands",
-    title: "Wrist flexor stretch",
-    desc: "Arm straight, palm up, gently pull the fingers down. Then reverse.",
-    dur: "15 s",
-    reps: "×2",
-    grad: "linear-gradient(145deg,#ff8d28,#ff383c)",
-    icon: "i-hand",
+    title: "Backward shoulder stretch",
+    desc: "Interlace your fingers behind your back. Then turn your elbows gently inward, while straightening your arms. Hold this position for 5 to 15 seconds, and repeat this exercise twice.",
+    total: 30,
+    images: [{ src: A + "backward-shoulder-stretch.png", dur: 10, mirror: false }],
   },
   {
-    cat: "back",
-    title: "Seated spinal twist",
-    desc: "Hand on the opposite knee, breathe out as you turn. Keep hips square.",
-    dur: "30 s",
-    reps: "×2",
-    grad: "linear-gradient(145deg,#34c759,#00c8b3)",
-    icon: "i-stretch",
+    title: "Move the eyes",
+    desc: "Look at the upper left corner of the outside border of your monitor. Follow the border slowly to the upper right corner. Continue to the next corner, until you got around it two times. Then, reverse the exercise.",
+    total: 32,
+    images: [
+      { src: A + "monitor-border-1.png", dur: 4, mirror: false },
+      { src: A + "monitor-border-2.png", dur: 4, mirror: false },
+      { src: A + "monitor-border-3.png", dur: 4, mirror: false },
+      { src: A + "monitor-border-4.png", dur: 4, mirror: false },
+    ],
   },
   {
-    cat: "hands",
-    title: "Finger fan",
-    desc: "Spread fingers wide like a star, hold, then make a soft fist. Repeat.",
-    dur: "10 s",
-    reps: "×8",
-    grad: "linear-gradient(145deg,#ff2d55,#cb30e0)",
-    icon: "i-hand",
+    title: "Train focusing the eyes",
+    desc: "Look for the furthest point you can see behind your monitor. Focus your eyes on the remote point. Then focus on your monitor border. Repeat it. If you cannot look very far from your monitor, face another direction with a longer view. Then switch your focus between a distant object and a pen held at the same distance from your eyes as your monitor.",
+    total: 25,
+    images: [
+      { src: A + "depth-focus-1.png", dur: 5, mirror: false },
+      { src: A + "depth-focus-2.png", dur: 5, mirror: false },
+    ],
   },
   {
-    cat: "neck",
-    title: "Chin tucks",
-    desc: "Glide the chin straight back — a gentle double-chin. Great after long calls.",
-    dur: "10 s",
-    reps: "×5",
-    grad: "linear-gradient(145deg,#0088ff,#6155f5)",
-    icon: "i-stretch",
+    title: "Look into the darkness",
+    desc: "Cover your eyes with your palms in such a way that you can still open your eyelids. Now open your eyes and look into the darkness of your palms. This exercise gives better relief to your eyes compared to simply closing them.",
+    total: 20,
+    images: [{ src: A + "eye-darkness.png", dur: 20, mirror: false }],
   },
   {
-    cat: "eyes",
-    title: "Palming",
-    desc: "Warm the hands, cup them over closed eyes, breathe. Total darkness for 30 s.",
-    dur: "30 s",
-    reps: "×1",
-    grad: "linear-gradient(145deg,#ffcc00,#ff8d28)",
-    icon: "i-eye",
+    title: "Move the shoulders",
+    desc: "Spin your right arm slowly round like a plane propeller beside your body. Do this 4 times forwards, 4 times backwards and relax for a few seconds. Repeat with the left arm.",
+    total: 30,
+    images: [
+      { src: A + "rotate-arm.png", dur: 15, mirror: false },
+      { src: A + "rotate-arm.png", dur: 15, mirror: true },
+    ],
   },
   {
-    cat: "shoulders",
-    title: "Doorway stretch",
-    desc: "Forearms on the frame, step through until the chest opens. Breathe into it.",
-    dur: "30 s",
-    reps: "×2",
-    grad: "linear-gradient(145deg,#00c8b3,#34c759)",
-    icon: "i-stretch",
+    title: "Move the shoulders up and down",
+    desc: "Put your hands on the armrests of your chair when you are sitting down and press your body up until your arms are straight. Try to move your head even further by lowering your shoulders. Slowly move back into your chair.",
+    total: 30,
+    images: [
+      { src: A + "chair-pushup-1.png", dur: 5, mirror: false },
+      { src: A + "chair-pushup-2.png", dur: 10, mirror: false },
+    ],
+  },
+  {
+    title: "Turn your head",
+    desc: "Turn your head left and keep it there for 2 seconds. Then turn your head right and keep it there for 2 seconds.",
+    total: 24,
+    images: [
+      { src: A + "turn-head-1.png", dur: 3, mirror: false },
+      { src: A + "turn-head-2.png", dur: 3, mirror: false },
+    ],
   },
 ];
 
-/* Weekly stats for the bar chart: active + break minutes per day */
+/* Simulated timer state (seconds). */
+WR.timers = {
+  micro: { limit: 5 * 60, breakLen: 20, elapsed: 2 * 60 + 42 },
+  rest: { limit: 45 * 60, breakLen: 5 * 60, elapsed: 32 * 60 + 19 },
+  daily: { limit: 6 * 60 * 60, breakLen: 0, elapsed: 4 * 60 * 60 + 36 * 60 },
+};
+
+/* Activity per hour for the "Rhythm today" chart: 9:00–17:00. */
+WR.hours = [
+  { active: 42, brk: 6 },
+  { active: 51, brk: 5 },
+  { active: 47, brk: 8 },
+  { active: 38, brk: 12 },
+  { active: 53, brk: 5 },
+  { active: 44, brk: 7 },
+  { active: 26, brk: 14 },
+  { active: 49, brk: 6 },
+  { active: 46, brk: 5 },
+];
+
+/* Week overview (minutes). */
 WR.week = [
-  { day: "Mon", active: 336, rest: 52 },
-  { day: "Tue", active: 368, rest: 61 },
-  { day: "Wed", active: 302, rest: 47 },
-  { day: "Thu", active: 385, rest: 58 },
-  { day: "Fri", active: 276, rest: 44 },
-  { day: "Sat", active: 142, rest: 32 },
-  { day: "Sun", active: 96, rest: 24 },
-];
-
-/* Design-system registries (values from the Apple HIG research) */
-WR.systemColors = [
-  ["Red", "255,56,60", "255,66,69"],
-  ["Orange", "255,141,40", "255,146,48"],
-  ["Yellow", "255,204,0", "255,214,0"],
-  ["Green", "52,199,89", "48,209,88"],
-  ["Mint", "0,200,179", "0,218,195"],
-  ["Teal", "0,195,208", "0,210,224"],
-  ["Cyan", "0,192,232", "60,211,254"],
-  ["Blue", "0,136,255", "0,145,255"],
-  ["Indigo", "97,85,245", "109,124,255"],
-  ["Purple", "203,48,224", "219,52,242"],
-  ["Pink", "255,45,85", "255,55,95"],
-  ["Brown", "172,127,94", "183,138,102"],
-];
-
-WR.typeScale = [
-  ["Large Title", "600 34px/41px", "17/22px"],
-  ["Title 1", "600 28px/34px", "—"],
-  ["Title 2", "600 22px/28px", "—"],
-  ["Title 3", "600 20px/25px", "—"],
-  ["Headline", "600 17px/22px", "—"],
-  ["Body", "400 17px/22px", "—"],
-  ["Callout", "400 16px/21px", "—"],
-  ["Subhead", "400 15px/20px", "—"],
-  ["Footnote", "400 13px/18px", "—"],
-  ["Caption 1", "400 12px/16px", "—"],
-  ["Caption 2", "500 11px/13px", "—"],
-];
-
-WR.radii = [
-  ["xs · 5", 5],
-  ["sm · 8", 8],
-  ["md · 10", 10],
-  ["lg · 12", 12],
-  ["xl · 17", 17],
-  ["2xl · 20", 20],
-  ["3xl · 24", 24],
-  ["pill", 1000],
-];
-
-WR.shadows = [
-  ["Thumb", "var(--shadow-thumb)"],
-  ["Segment", "var(--shadow-segment)"],
-  ["Card small", "var(--shadow-card-small)"],
-  ["Card", "var(--shadow-card)"],
-  ["Lift", "var(--shadow-lift)"],
-  ["Glass", "var(--shadow-glass)"],
+  { day: "Mon", active: 336, brk: 52 },
+  { day: "Tue", active: 368, brk: 61 },
+  { day: "Wed", active: 302, brk: 47 },
+  { day: "Thu", active: 385, brk: 58 },
+  { day: "Fri", active: 276, brk: 44 },
+  { day: "Sat", active: 142, brk: 32 },
+  { day: "Sun", active: 96, brk: 24 },
 ];

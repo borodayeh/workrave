@@ -36,6 +36,8 @@
       $$(".page").forEach((p) => p.classList.remove("is-active"));
       $("#page-" + page).classList.add("is-active");
       $("#page-title").textContent = titles[page] || "";
+      // segmented thumbs of a freshly shown page need a real layout pass
+      requestAnimationFrame(() => $$(".segmented").forEach(moveThumb));
       if (page === "stats") animateStats();
     });
   });

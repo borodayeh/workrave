@@ -68,9 +68,14 @@ TimerBoxControl::update()
     {
       if (force_duration == 0)
         {
+          // Cycle when a new cycle_time window starts. Comparing window
+          // numbers instead of (t % cycle_time == 0) makes sure the slots
+          // also cycle when an update is missed or runs twice in a second.
           time_t t = time(nullptr);
-          if (t % cycle_time == 0)
+          time_t bucket = (cycle_time > 0) ? (t / cycle_time) : t;
+          if (last_cycle_bucket != bucket)
             {
+              last_cycle_bucket = bucket;
               init_table();
               cycle_slots();
             }
@@ -284,7 +289,7 @@ TimerBoxControl::init_slot(int slot)
       int id = breaks_id[i];
       int flags = break_flags[id];
 
-      auto b = core->get_break(static_cast<BreakId>(i));
+      auto b = core->get_break(static_cast<BreakId>(id));
 
       int64_t time_left = b->get_limit() - b->get_elapsed_time();
 
@@ -395,6 +400,10 @@ TimerBoxControl::load_configuration()
 {
   TRACE_ENTRY();
   cycle_time = GUIConfig::timerbox_cycle_time(name)();
+  if (cycle_time > 0)
+    {
+      last_cycle_bucket = time(nullptr) / cycle_time;
+    }
   for (int i = 0; i < BREAK_ID_SIZEOF; i++)
     {
       auto bid = static_cast<BreakId>(i);

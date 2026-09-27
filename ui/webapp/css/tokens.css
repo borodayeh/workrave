@@ -1,34 +1,58 @@
-/* ==========================================================================
-   Workrave Design System — “Aurora”
-   Token layer, measured from Apple’s Human Interface Guidelines and Apple’s
-   own web (apps.apple.com / music.apple.com) via the open research in
-   STiXzoOR/applecn. Radii, type scale, semantic roles, motion and elevation
-   follow the published values; the Workrave timebar palette is mapped onto
-   Apple system colours.
-   ========================================================================== */
+/* ============================================================
+   Workrave — design tokens (Apple HIG measured values)
+   Source: Apple design-system reference (system colors, type,
+   radii, control geometry, motion curves).
+   ============================================================ */
 
 :root {
   color-scheme: light dark;
 
-  /* ---- Typography (HIG Type Specifications, iOS Large) ---------------- */
+  /* Typography */
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
     system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-rounded: ui-rounded, "SF Pro Rounded", var(--font-sans);
-  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
-  --type-large-title: 600 34px/41px var(--font-sans);
-  --type-title-1: 600 28px/34px var(--font-sans);
-  --type-title-2: 600 22px/28px var(--font-sans);
-  --type-title-3: 600 20px/25px var(--font-sans);
-  --type-headline: 600 17px/22px var(--font-sans);
-  --type-body: 400 17px/22px var(--font-sans);
-  --type-callout: 400 16px/21px var(--font-sans);
-  --type-subhead: 400 15px/20px var(--font-sans);
-  --type-footnote: 400 13px/18px var(--font-sans);
-  --type-caption: 400 12px/16px var(--font-sans);
-  --type-caption-2: 500 11px/13px var(--font-sans);
+  /* Labels (light) */
+  --label: rgba(0, 0, 0, 0.85);
+  --label-2: rgba(0, 0, 0, 0.5);
+  --label-3: rgba(0, 0, 0, 0.26);
+  --label-4: rgba(0, 0, 0, 0.1);
+  --placeholder: rgba(0, 0, 0, 0.26);
 
-  /* ---- Shape (apps.apple.com radius ladder) --------------------------- */
+  /* Fills (light) */
+  --fill-1: rgba(120, 120, 128, 0.08);
+  --fill-2: rgba(120, 120, 128, 0.12);
+  --fill-3: rgba(120, 120, 128, 0.16);
+  --fill-4: rgba(120, 120, 128, 0.2);
+
+  /* Structure (light) */
+  --hairline: rgba(0, 0, 0, 0.08);
+  --hairline-strong: rgba(0, 0, 0, 0.12);
+  --surface: #ffffff;
+  --bg-1: #f2f2f7;
+  --bg-2: #f8f8fa;
+  --sidebar-bg: rgba(248, 248, 250, 0.72);
+
+  /* Apple system colors */
+  --system-red: rgb(255, 56, 60);
+  --system-orange: rgb(255, 141, 40);
+  --system-yellow: rgb(255, 204, 0);
+  --system-green: rgb(52, 199, 89);
+  --system-teal: rgb(90, 200, 250);
+  --system-cyan: rgb(0, 192, 232);
+  --system-blue: rgb(0, 136, 255);
+  --system-indigo: rgb(97, 85, 245);
+  --system-purple: rgb(203, 48, 224);
+  --system-pink: rgb(255, 55, 95);
+
+  --accent: var(--system-blue);
+  --accent-deep: rgb(0, 112, 230);
+
+  /* Traffic lights */
+  --traffic-red: rgb(255, 95, 87);
+  --traffic-amber: rgb(255, 189, 46);
+  --traffic-green: rgb(40, 200, 64);
+
+  /* Radii */
   --radius-xs: 5px;
   --radius-sm: 8px;
   --radius-md: 10px;
@@ -36,122 +60,31 @@
   --radius-xl: 17px;
   --radius-2xl: 20px;
   --radius-3xl: 24px;
-  --radius-pill: 1000px;
+  --radius-pill: 980px;
 
-  /* ---- Spacing (4pt grid) -------------------------------------------- */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
-  --space-8: 32px;
-  --space-10: 40px;
-  --space-12: 48px;
-  --space-16: 64px;
-
-  /* ---- Motion (Apple web CSS easings) -------------------------------- */
-  --ease-standard: cubic-bezier(0.04, 0.04, 0.12, 0.96);
-  --ease-nav: cubic-bezier(0.4, 0, 0.6, 1);
-  --ease-transform: cubic-bezier(0.25, 0.1, 0.3, 1);
-  --ease-sheet: cubic-bezier(0.52, 0.16, 0.24, 1);
-  --ease-menu: cubic-bezier(0.215, 0.61, 0.355, 1);
-  --duration-press: 100ms;
-  --duration-hover: 210ms;
-  --duration-overlay: 300ms;
-  --duration-nav: 240ms;
-  --duration-sheet: 560ms;
-
-  /* ---- Light appearance (UIKit semantic roles) ----------------------- */
-  --label: rgba(0, 0, 0, 1);
-  --label-2: rgba(60, 60, 67, 0.6);
-  --label-3: rgba(60, 60, 67, 0.3);
-  --label-4: rgba(60, 60, 67, 0.18);
-  --placeholder: rgba(60, 60, 67, 0.3);
-
-  --fill-1: rgba(120, 120, 128, 0.2);
-  --fill-2: rgba(120, 120, 128, 0.16);
-  --fill-3: rgba(118, 118, 128, 0.12);
-  --fill-4: rgba(116, 116, 128, 0.08);
-
-  --bg-1: #ffffff;
-  --bg-2: #f2f2f7;
-  --bg-3: #ffffff;
-  --grouped-bg-1: #f2f2f7;
-  --grouped-bg-2: #ffffff;
-
-  --separator: rgba(60, 60, 67, 0.29);
-  --hairline: rgba(60, 60, 67, 0.2);
-
-  /* System colours, default light (HIG Color Specifications) */
-  --system-red: rgb(255, 56, 60);
-  --system-orange: rgb(255, 141, 40);
-  --system-yellow: rgb(255, 204, 0);
-  --system-green: rgb(52, 199, 89);
-  --system-mint: rgb(0, 200, 179);
-  --system-teal: rgb(0, 195, 208);
-  --system-cyan: rgb(0, 192, 232);
-  --system-blue: rgb(0, 136, 255);
-  --system-indigo: rgb(97, 85, 245);
-  --system-purple: rgb(203, 48, 224);
-  --system-pink: rgb(255, 45, 85);
-  --system-brown: rgb(172, 127, 94);
-
-  --gray-1: rgb(142, 142, 147);
-  --gray-2: rgb(174, 174, 178);
-  --gray-3: rgb(199, 199, 204);
-  --gray-4: rgb(209, 209, 214);
-  --gray-5: rgb(229, 229, 234);
-  --gray-6: rgb(242, 242, 247);
-
-  --link: rgb(0, 122, 255);
-  /* App tint: health-green — the product is about rhythm and wellness. */
-  --accent: rgb(52, 199, 89);
-  --accent-soft: rgba(52, 199, 89, 0.14);
-  --destructive: var(--system-red);
-
-  /* Workrave timebar semantics → Apple system colours */
-  --timebar-bg: var(--gray-3);
-  --timebar-active: rgb(0, 170, 255); /* micro-break running   (was lightblue)  */
-  --timebar-inactive: rgb(48, 209, 88); /* resting / auto-reset (was lightgreen) */
-  --timebar-overdue: rgb(255, 141, 40); /* overdue               (was orange)     */
-  --timebar-over-active: rgb(0, 200, 179); /* inactive over active (mint)       */
-  --timebar-over-overdue: rgb(48, 209, 88);
-
-  --micro: var(--system-cyan);
-  --rest: var(--system-green);
-  --daily: var(--system-purple);
-
-  /* ---- Elevation (Apple web + UIKit shadows) -------------------------- */
-  --shadow-thumb: 0 3px 8px rgba(0, 0, 0, 0.15), 0 3px 1px rgba(0, 0, 0, 0.06);
-  --shadow-segment: 0 3px 8px rgba(0, 0, 0, 0.12), 0 3px 1px rgba(0, 0, 0, 0.04);
+  /* Elevation */
+  --shadow-thumb: 0 3px 8px rgba(0, 0, 0, 0.15), 0 1px 1px rgba(0, 0, 0, 0.16);
   --shadow-card: 0 3px 20px rgba(0, 0, 0, 0.08);
-  --shadow-card-small: 0 3px 9px rgba(0, 0, 0, 0.08);
-  --shadow-lift: 0 1px 1px rgba(0, 0, 0, 0.01), 0 2px 2px rgba(0, 0, 0, 0.01),
-    0 4px 4px rgba(0, 0, 0, 0.02), 0 8px 8px rgba(0, 0, 0, 0.03),
-    0 14px 14px rgba(0, 0, 0, 0.03);
-  --shadow-glass: inset 0 0 0 1px rgba(0, 0, 0, 0.05), 0 10px 40px rgba(0, 0, 0, 0.1);
-  --shadow-dialog: inset 0 0 0 1px rgba(255, 255, 255, 0.2),
-    0 8px 40px rgba(0, 0, 0, 0.25);
-  --focus-ring: 0 0 0 3.5px rgba(52, 199, 89, 0.45);
+  --shadow-float: 0 10px 40px rgba(0, 0, 0, 0.12);
 
-  /* ---- Glass materials (Music / App Store glass tokens) -------------- */
-  --glass-bg: rgba(255, 255, 255, 0.72);
-  --glass-bg-thick: rgba(255, 255, 255, 0.86);
+  /* Glass */
   --glass-blur: blur(40px) saturate(1.8);
-  --glass-stroke: rgba(255, 255, 255, 0.55);
 
-  /* Sidebar / toolbar materials (macOS) */
-  --sidebar-bg: rgba(246, 246, 248, 0.78);
-  --toolbar-bg: rgba(246, 246, 248, 0.82);
+  /* Focus */
+  --focus-ring: 0 0 0 3.5px rgba(0, 136, 255, 0.28);
 
-  /* ---- Layout --------------------------------------------------------- */
-  --sidebar-w: 264px;
-  --content-max: 1120px;
-  --topbar-h: 64px;
+  /* Motion (Apple curves) */
+  --ease-out: cubic-bezier(0.04, 0.04, 0.12, 0.96);
+  --ease-sheet: cubic-bezier(0.52, 0.16, 0.24, 1);
+  --dur-fast: 100ms;
+  --dur-base: 210ms;
+  --dur-slow: 300ms;
+
+  /* Break overlay scenery */
+  --sun: rgb(255, 214, 10);
 }
 
-/* ---- Dark appearance -------------------------------------------------- */
+/* Dark appearance */
 :root[data-theme="dark"] {
   --label: rgba(255, 255, 255, 1);
   --label-2: rgba(235, 235, 245, 0.6);
@@ -159,112 +92,48 @@
   --label-4: rgba(235, 235, 245, 0.16);
   --placeholder: rgba(235, 235, 245, 0.3);
 
-  --fill-1: rgba(120, 120, 128, 0.36);
-  --fill-2: rgba(120, 120, 128, 0.32);
-  --fill-3: rgba(118, 118, 128, 0.24);
-  --fill-4: rgba(116, 116, 128, 0.18);
+  --fill-1: rgba(120, 120, 128, 0.18);
+  --fill-2: rgba(120, 120, 128, 0.24);
+  --fill-3: rgba(120, 120, 128, 0.32);
+  --fill-4: rgba(120, 120, 128, 0.4);
 
-  --bg-1: #000000;
-  --bg-2: #1c1c1e;
-  --bg-3: #2c2c2e;
-  --grouped-bg-1: #000000;
-  --grouped-bg-2: #1c1c1e;
+  --hairline: rgba(255, 255, 255, 0.1);
+  --hairline-strong: rgba(255, 255, 255, 0.16);
+  --surface: #2c2c2e;
+  --bg-1: #1c1c1e;
+  --bg-2: #242426;
+  --sidebar-bg: rgba(44, 44, 46, 0.72);
 
-  --separator: rgba(84, 84, 88, 0.6);
-  --hairline: rgba(255, 255, 255, 0.12);
+  --accent: rgb(10, 132, 255);
+  --accent-deep: rgb(0, 112, 230);
 
-  --system-red: rgb(255, 66, 69);
-  --system-orange: rgb(255, 146, 48);
-  --system-yellow: rgb(255, 214, 0);
-  --system-green: rgb(48, 209, 88);
-  --system-mint: rgb(0, 218, 195);
-  --system-teal: rgb(0, 210, 224);
-  --system-cyan: rgb(60, 211, 254);
-  --system-blue: rgb(0, 145, 255);
-  --system-indigo: rgb(109, 124, 255);
-  --system-purple: rgb(219, 52, 242);
-  --system-pink: rgb(255, 55, 95);
-  --system-brown: rgb(183, 138, 102);
+  --shadow-card: 0 3px 20px rgba(0, 0, 0, 0.35);
+  --shadow-float: 0 10px 40px rgba(0, 0, 0, 0.45);
 
-  --gray-1: rgb(142, 142, 147);
-  --gray-2: rgb(99, 99, 102);
-  --gray-3: rgb(72, 72, 74);
-  --gray-4: rgb(58, 58, 60);
-  --gray-5: rgb(44, 44, 46);
-  --gray-6: rgb(28, 28, 30);
-
-  --link: rgb(9, 132, 255);
-  --accent: rgb(48, 209, 88);
-  --accent-soft: rgba(48, 209, 88, 0.18);
-
-  --timebar-bg: var(--gray-3);
-  --timebar-active: rgb(60, 211, 254);
-  --timebar-inactive: rgb(48, 209, 88);
-  --timebar-overdue: rgb(255, 146, 48);
-  --timebar-over-active: rgb(0, 218, 195);
-  --timebar-over-overdue: rgb(48, 209, 88);
-
-  --micro: var(--system-cyan);
-  --rest: var(--system-green);
-  --daily: var(--system-purple);
-
-  --shadow-card: 0 3px 20px rgba(0, 0, 0, 0.45);
-  --shadow-card-small: 0 3px 9px rgba(0, 0, 0, 0.4);
-  --shadow-lift: 0 1px 1px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.2),
-    0 4px 4px rgba(0, 0, 0, 0.25), 0 8px 8px rgba(0, 0, 0, 0.3),
-    0 14px 14px rgba(0, 0, 0, 0.32);
-  --shadow-glass: inset 0 0 0 1px rgba(255, 255, 255, 0.12), 0 10px 40px rgba(0, 0, 0, 0.5);
-  --shadow-dialog: inset 0 0 0 1px rgba(255, 255, 255, 0.16), 0 8px 40px rgba(0, 0, 0, 0.55);
-  --focus-ring: 0 0 0 3.5px rgba(48, 209, 88, 0.5);
-
-  --glass-bg: rgba(28, 28, 30, 0.72);
-  --glass-bg-thick: rgba(28, 28, 30, 0.86);
-  --glass-stroke: rgba(255, 255, 255, 0.14);
-
-  --sidebar-bg: rgba(38, 38, 42, 0.72);
-  --toolbar-bg: rgba(30, 30, 33, 0.78);
+  --focus-ring: 0 0 0 3.5px rgba(10, 132, 255, 0.38);
 }
 
-/* Auto mode: follow the system when no explicit override is stored */
 @media (prefers-color-scheme: dark) {
   :root[data-theme="auto"] {
     --label: rgba(255, 255, 255, 1);
     --label-2: rgba(235, 235, 245, 0.6);
     --label-3: rgba(235, 235, 245, 0.3);
     --label-4: rgba(235, 235, 245, 0.16);
-    --placeholder: rgba(235, 235, 245, 0.3);
-    --fill-1: rgba(120, 120, 128, 0.36);
-    --fill-2: rgba(120, 120, 128, 0.32);
-    --fill-3: rgba(118, 118, 128, 0.24);
-    --fill-4: rgba(116, 116, 128, 0.18);
-    --bg-1: #000000;
-    --bg-2: #1c1c1e;
-    --bg-3: #2c2c2e;
-    --grouped-bg-1: #000000;
-    --grouped-bg-2: #1c1c1e;
-    --separator: rgba(84, 84, 88, 0.6);
-    --hairline: rgba(255, 255, 255, 0.12);
-    --system-blue: rgb(0, 145, 255);
-    --link: rgb(9, 132, 255);
-    --accent: rgb(48, 209, 88);
-    --accent-soft: rgba(48, 209, 88, 0.18);
-    --glass-bg: rgba(28, 28, 30, 0.72);
-    --glass-bg-thick: rgba(28, 28, 30, 0.86);
-    --glass-stroke: rgba(255, 255, 255, 0.14);
-    --sidebar-bg: rgba(38, 38, 42, 0.72);
-    --toolbar-bg: rgba(30, 30, 33, 0.78);
-    --shadow-card: 0 3px 20px rgba(0, 0, 0, 0.45);
-    --shadow-glass: inset 0 0 0 1px rgba(255, 255, 255, 0.12), 0 10px 40px rgba(0, 0, 0, 0.5);
-    color-scheme: dark;
-  }
-}
 
-@media (prefers-reduced-motion: reduce) {
-  :root {
-    --duration-press: 0ms;
-    --duration-hover: 0ms;
-    --duration-overlay: 0ms;
-    --duration-nav: 0ms;
-    --duration-sheet: 0ms;
+    --fill-1: rgba(120, 120, 128, 0.18);
+    --fill-2: rgba(120, 120, 128, 0.24);
+    --fill-3: rgba(120, 120, 128, 0.32);
+
+    --hairline: rgba(255, 255, 255, 0.1);
+    --hairline-strong: rgba(255, 255, 255, 0.16);
+    --surface: #2c2c2e;
+    --bg-1: #1c1c1e;
+    --bg-2: #242426;
+    --sidebar-bg: rgba(44, 44, 46, 0.72);
+
+    --accent: rgb(10, 132, 255);
+    --accent-deep: rgb(0, 112, 230);
+    --shadow-card: 0 3px 20px rgba(0, 0, 0, 0.35);
+    --focus-ring: 0 0 0 3.5px rgba(10, 132, 255, 0.38);
   }
 }

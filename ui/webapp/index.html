@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,482 +11,516 @@
 <link rel="stylesheet" href="css/pages.css">
 </head>
 <body>
-
-<!-- SF-Symbols-flavoured line glyphs -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <symbol id="i-today" viewBox="0 0 24 24">
-      <circle cx="12" cy="12" r="8.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
-      <path d="M12 7.4V12l3 1.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-    </symbol>
-    <symbol id="i-break" viewBox="0 0 24 24">
-      <rect x="4.2" y="6" width="15.6" height="11" rx="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/>
-      <path d="M12 3.2v2.8M8.6 20h6.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-      <path d="M9.2 10.2v2.6M12 8.8v5.4M14.8 10.2v2.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-    </symbol>
-    <symbol id="i-exercise" viewBox="0 0 24 24">
-      <circle cx="12" cy="4.9" r="1.9" fill="none" stroke="currentColor" stroke-width="1.8"/>
-      <path d="M12 7.4v5.2m0 0l-3.2 6M12 12.6l3.2 6M6.6 9.8l5.4-1.4 5.4 1.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-    </symbol>
-    <symbol id="i-history" viewBox="0 0 24 24">
-      <path d="M4.5 19.5V11M9.5 19.5V5.5M14.5 19.5v-6M19.5 19.5V8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-    </symbol>
-    <symbol id="i-settings" viewBox="0 0 24 24">
-      <circle cx="12" cy="12" r="2.9" fill="none" stroke="currentColor" stroke-width="1.8"/>
-      <path d="M12 3.6v2.1m0 12.6v2.1M20.4 12h-2.1M5.7 12H3.6M17.9 6.1l-1.5 1.5M7.6 16.4l-1.5 1.5M17.9 17.9l-1.5-1.5M7.6 7.6L6.1 6.1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-    </symbol>
-    <symbol id="i-play" viewBox="0 0 24 24">
-      <path d="M8.5 6.2v11.6c0 .7.8 1.1 1.4.7l8.6-5.8c.5-.4.5-1.1 0-1.4L9.9 5.5c-.6-.4-1.4 0-1.4.7z" fill="currentColor"/>
-    </symbol>
-    <symbol id="i-pause" viewBox="0 0 24 24">
-      <rect x="7" y="5" width="3.4" height="14" rx="1.2" fill="currentColor"/>
-      <rect x="13.6" y="5" width="3.4" height="14" rx="1.2" fill="currentColor"/>
-    </symbol>
-    <symbol id="i-moon" viewBox="0 0 24 24">
-      <path d="M19.6 13.7A7.7 7.7 0 0 1 10.3 4.4a7.9 7.9 0 1 0 9.3 9.3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-    </symbol>
-    <symbol id="i-sun" viewBox="0 0 24 24">
-      <circle cx="12" cy="12" r="3.9" fill="none" stroke="currentColor" stroke-width="1.8"/>
-      <path d="M12 3.2v2M12 18.8v2M3.2 12h2M18.8 12h2M5.7 5.7l1.4 1.4M16.9 16.9l1.4 1.4M18.3 5.7l-1.4 1.4M7.1 16.9l-1.4 1.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-    </symbol>
-    <symbol id="i-auto" viewBox="0 0 24 24">
-      <circle cx="12" cy="12" r="8.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
-      <path d="M12 3.8v16.4" stroke="currentColor" stroke-width="1.8"/>
-      <path d="M12 3.8a8.2 8.2 0 0 1 0 16.4z" fill="currentColor" opacity=".9"/>
-    </symbol>
-    <symbol id="i-search" viewBox="0 0 24 24">
-      <circle cx="10.8" cy="10.8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
-      <path d="M15.5 15.5L20 20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-    </symbol>
-    <symbol id="i-bell" viewBox="0 0 24 24">
-      <path d="M12 4a5.4 5.4 0 0 1 5.4 5.4c0 3.4.9 5 1.8 6H4.8c.9-1 1.8-2.6 1.8-6A5.4 5.4 0 0 1 12 4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-      <path d="M10 18.6a2 2 0 0 0 4 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-    </symbol>
-    <symbol id="i-block" viewBox="0 0 24 24">
-      <circle cx="12" cy="12" r="8.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
-      <path d="M6.2 6.2l11.6 11.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-    </symbol>
-    <symbol id="i-eye" viewBox="0 0 24 24">
-      <path d="M3.2 12S6.6 6.4 12 6.4 20.8 12 20.8 12 17.4 17.6 12 17.6 3.2 12 3.2 12z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-      <circle cx="12" cy="12" r="2.4" fill="none" stroke="currentColor" stroke-width="1.8"/>
-    </symbol>
-    <symbol id="i-clock" viewBox="0 0 24 24">
-      <circle cx="12" cy="12" r="8.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
-      <path d="M12 7.2V12l3.2 1.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-    </symbol>
-    <symbol id="i-sound" viewBox="0 0 24 24">
-      <path d="M4.4 9.8v4.4h3.1l4.3 3.4V6.4L7.5 9.8H4.4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-      <path d="M15.4 9.4c.9.8 1.4 1.7 1.4 2.6s-.5 1.8-1.4 2.6M17.8 7c1.5 1.3 2.4 3 2.4 5s-.9 3.7-2.4 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-    </symbol>
-    <symbol id="i-shapes" viewBox="0 0 24 24">
-      <rect x="4" y="4" width="7.2" height="7.2" rx="1.8" fill="none" stroke="currentColor" stroke-width="1.8"/>
-      <circle cx="16.6" cy="7.6" r="3.6" fill="none" stroke="currentColor" stroke-width="1.8"/>
-      <path d="M7.6 13.6l3.8 6.4H3.8l3.8-6.4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-      <rect x="13.2" y="13.8" width="7" height="6.2" rx="1.8" fill="none" stroke="currentColor" stroke-width="1.8"/>
-    </symbol>
-    <symbol id="i-power" viewBox="0 0 24 24">
-      <path d="M12 3.8v7.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-      <path d="M7.2 6.8a6.8 6.8 0 1 0 9.6 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-    </symbol>
-    <symbol id="i-chevron" viewBox="0 0 8 13">
-      <path d="M1.8 1.8L6.2 6.5l-4.4 4.7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-    </symbol>
-  </defs>
-</svg>
+<svg class="sprite" aria-hidden="true" focusable="false"><defs>
+  <symbol id="i-today" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+    <rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M8 14h.01M12 14h.01M16 14h.01"/>
+  </symbol>
+  <symbol id="i-exercise" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+    <circle cx="12" cy="5" r="2.2"/><path d="M12 8v5m0 0-3.2 6M12 13l3.2 6M7.2 10.2 12 9l4.8 1.2"/>
+  </symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6.5" y="4.5" width="3.6" height="15" rx="1.4"/><rect x="13.9" y="4.5" width="3.6" height="15" rx="1.4"/></symbol>
+  <symbol id="i-stat" viewBox="0 0 24 24"><rect x="3.5" y="12.5" width="4.4" height="7.5" rx="1.4"/><rect x="9.8" y="8.5" width="4.4" height="11.5" rx="1.4"/><rect x="16.1" y="4.5" width="4.4" height="15.5" rx="1.4"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+    <path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="15.5" cy="7" r="2.2"/><circle cx="7.5" cy="17" r="2.2"/>
+  </symbol>
+  <symbol id="i-activity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+    <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 1.8"/>
+  </symbol>
+  <symbol id="i-mug" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+    <path d="M5 5h11v11a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3z"/><path d="M16 8h2.2a2.6 2.6 0 0 1 0 5.2H16"/>
+  </symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+    <path d="M2.8 12S6.2 6.2 12 6.2 21.2 12 21.2 12 17.8 17.8 12 17.8 2.8 12 2.8 12z"/><circle cx="12" cy="12" r="2.5"/>
+  </symbol>
+  <symbol id="i-focus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+    <path d="M8 4H5.6A1.6 1.6 0 0 0 4 5.6V8M16 4h2.4A1.6 1.6 0 0 1 20 5.6V8M8 20H5.6A1.6 1.6 0 0 1 4 18.4V16M16 20h2.4a1.6 1.6 0 0 0 1.6-1.6V16"/><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/>
+  </symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.2A8.2 8.2 0 0 1 9.8 4 8.5 8.5 0 1 0 20 14.2z"/></symbol>
+  <symbol id="i-arm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+    <circle cx="8.5" cy="7.2" r="2.1"/><path d="M4.6 20v-3.4a3.4 3.4 0 0 1 3.4-3.4h3"/><path d="M13.6 10.8h2.6a3.4 3.4 0 0 1 3.4 3.4v1.2a2.2 2.2 0 1 1-4.4 0"/>
+  </symbol>
+  <symbol id="i-hand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+    <path d="M9 11.2V5.6a1.3 1.3 0 0 1 2.6 0v5.2m0-1.4a1.3 1.3 0 0 1 2.6 0v1.8m0-.8a1.3 1.3 0 0 1 2.6 0v2.8"/><path d="M17 12.6s2.2 1.4 2.2 3.8c0 2.4-1.9 3.9-4.4 3.9h-2.6c-1.1 0-2.2-.5-2.9-1.4L6.8 15.6c-.5-.7-.3-1.6.4-2.1.6-.4 1.4-.3 1.9.2L9.6 14"/>
+  </symbol>
+  <symbol id="i-chev-r" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></symbol>
+  <symbol id="i-skip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l10 7L5 19zM18 5v14"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-pause-mini" viewBox="0 0 24 24"><rect x="6.5" y="4.5" width="3.6" height="15" rx="1.4"/><rect x="13.9" y="4.5" width="3.6" height="15" rx="1.4"/></symbol>
+  <symbol id="i-play-mini" viewBox="0 0 24 24"><path d="M7 4.5 19.5 12 7 19.5z"/></symbol>
+</defs></svg>
 
 <div class="app-window">
-
-  <!-- ===== Sidebar ===== -->
   <aside class="sidebar">
-    <div class="titlebar">
-      <span class="traffic red" title="Close"></span>
-      <span class="traffic amber" title="Minimize"></span>
-      <span class="traffic green" title="Zoom"></span>
+    <div class="titlebar" role="group" aria-label="Window controls">
+      <span class="traffic red" aria-hidden="true"></span>
+      <span class="traffic amber" aria-hidden="true"></span>
+      <span class="traffic green" aria-hidden="true"></span>
     </div>
-
-    <nav class="nav" aria-label="Main">
+    <nav class="nav" aria-label="Sections">
       <button class="nav-item" data-page="today" aria-current="page">
-        <span class="nav-icon" style="background:#30b0c7"><svg><use href="#i-today"/></svg></span>Today
-      </button>
-      <button class="nav-item" data-page="breaks">
-        <span class="nav-icon" style="background:#34c759"><svg><use href="#i-break"/></svg></span>Breaks
+        <div class="row-tile app-icon"><img src="assets/workrave.png" alt="" width="30" height="30"></div>
+        Today
       </button>
       <button class="nav-item" data-page="exercises">
-        <span class="nav-icon" style="background:#ff9500"><svg><use href="#i-exercise"/></svg></span>Exercises
+        <div class="row-tile"><svg viewBox="0 0 24 24"><use href="#i-exercise"/></svg></div>
+        Exercises
       </button>
-      <button class="nav-item" data-page="history">
-        <span class="nav-icon" style="background:#5856d6"><svg><use href="#i-history"/></svg></span>History
+      <button class="nav-item" data-page="pause">
+        <div class="row-tile"><svg viewBox="0 0 24 24"><use href="#i-pause"/></svg></div>
+        Pause
+      </button>
+      <button class="nav-item" data-page="statistics">
+        <div class="row-tile"><svg viewBox="0 0 24 24"><use href="#i-stat"/></svg></div>
+        Statistics
       </button>
       <button class="nav-item" data-page="settings">
-        <span class="nav-icon" style="background:#8e8e93"><svg><use href="#i-settings"/></svg></span>Settings
+        <div class="row-tile"><svg viewBox="0 0 24 24"><use href="#i-settings"/></svg></div>
+        Settings
       </button>
     </nav>
-
     <div class="sidebar-status">
-      <div class="app-icon"><img src="assets/workrave.png" alt="Workrave" width="28" height="28"></div>
-      <div>
-        <div class="st-label"><span class="st-dot"></span><span id="status-mode">Active</span></div>
-        <div class="st-sub">Next break in <span class="tnum" id="status-next">12:41</span></div>
-      </div>
+      <div class="st-label"><span class="st-dot"></span>On a break</div>
+      <div class="st-sub">Next break in 03:42</div>
     </div>
   </aside>
 
-  <!-- ===== Content ===== -->
   <main class="content">
     <header class="toolbar">
-      <div class="tb-title" id="toolbar-title">Today</div>
-      <div class="spacer"></div>
-      <div class="segmented" id="theme-seg" role="tablist" aria-label="Appearance">
-        <div class="thumb"></div>
-        <button role="tab" aria-selected="true" data-theme="light" title="Light"><svg><use href="#i-sun"/></svg></button>
-        <button role="tab" aria-selected="false" data-theme="dark" title="Dark"><svg><use href="#i-moon"/></svg></button>
-        <button role="tab" aria-selected="false" data-theme="auto" title="Auto"><svg><use href="#i-auto"/></svg></button>
-      </div>
-      <button class="btn btn-primary" id="btn-break-now">Take a Break</button>
+      <h1 class="title" id="toolbar-title">Today</h1>
+      <button class="btn" id="btn-pause-now">Take rest break now</button>
     </header>
 
     <div class="pages">
-
-      <!-- ================= Today ================= -->
-      <section class="page is-active" id="page-today">
+      <!-- ============ TODAY ============ -->
+      <section class="page" data-page="today">
         <div class="page-head">
-          <div class="eyebrow" id="today-date">Saturday, 27 September</div>
           <h1>Today</h1>
+          <p>Wednesday, 24 September · You're all set</p>
         </div>
 
-        <div class="hero">
-          <div class="hero-main">
-            <div class="hero-label">Next rest break</div>
-            <div class="hero-time tnum"><span id="hero-min">12</span><span class="colon">:</span><span id="hero-sec">41</span></div>
-            <div class="hero-track"><div class="hero-fill" id="hero-fill"></div></div>
-            <div class="hero-meta">
-              <span>Every 45 minutes · 5 minute break</span>
-              <span class="tnum" id="hero-window">14:02 – 14:47</span>
+        <div class="hero card">
+          <div>
+            <div class="eyebrow">NEXT REST BREAK</div>
+            <div class="hero-time">03:42</div>
+            <div class="hero-sub">in 3 minutes 42 seconds</div>
+            <div class="hero-actions">
+              <button class="btn" data-action="take-break">Take a break now</button>
+              <button class="btn ghost" data-action="open-exercises">Exercises</button>
             </div>
           </div>
-          <div class="hero-side">
-            <div class="mode-row">
-              <div class="mode-text">
-                <div class="k">Mode</div>
-                <div class="v" id="mode-name">Normal</div>
-              </div>
-              <div class="segmented" id="mode-seg" role="tablist" aria-label="Mode">
-                <div class="thumb"></div>
-                <button role="tab" aria-selected="true" data-mode="normal">Normal</button>
-                <button role="tab" aria-selected="false" data-mode="quiet">Quiet</button>
-                <button role="tab" aria-selected="false" data-mode="suspended">Suspended</button>
-              </div>
-            </div>
-            <div class="mode-note">
-              In Quiet mode Workrave only breaks your rhythm with rest breaks.
-              Suspended pauses all timers — they resume exactly where they left.
-            </div>
-            <div class="stat-mini">
-              <div><div class="k">Active today</div><div class="v tnum">4h 36m</div></div>
-              <div><div class="k">Breaks</div><div class="v tnum">21</div></div>
-              <div><div class="k">On schedule</div><div class="v tnum">92%</div></div>
-            </div>
-          </div>
-        </div>
-
-        <h2 class="section-title">Your breaks</h2>
-        <div class="group">
-          <div class="row row-break" data-open="breaks">
-            <div class="row-tile" style="background:#30b0c7"><svg><use href="#i-pause"/></svg></div>
-            <div class="row-body">
-              <div class="row-title">Micro-break</div>
-              <div class="row-sub">20-second pause every 5 minutes</div>
-            </div>
-            <div class="row-right">
-              <div class="row-value tnum">Break in <strong id="micro-in">2:18</strong></div>
-              <div class="mini-track"><div class="mini-fill" id="micro-fill"></div></div>
-            </div>
-          </div>
-          <div class="row row-break" data-open="breaks">
-            <div class="row-tile" style="background:#34c759"><svg><use href="#i-break"/></svg></div>
-            <div class="row-body">
-              <div class="row-title">Rest break</div>
-              <div class="row-sub">5-minute break every 45 minutes</div>
-            </div>
-            <div class="row-right">
-              <div class="row-value tnum">Break in <strong id="rest-in">12:41</strong></div>
-              <div class="mini-track"><div class="mini-fill" id="rest-fill"></div></div>
-            </div>
-          </div>
-          <div class="row row-break" data-open="breaks">
-            <div class="row-tile" style="background:#5856d6"><svg><use href="#i-history"/></svg></div>
-            <div class="row-body">
-              <div class="row-title">Daily limit</div>
-              <div class="row-sub">6 hours of activity, then stop for today</div>
-            </div>
-            <div class="row-right">
-              <div class="row-value tnum"><strong id="daily-left">1h 24m</strong> left</div>
-              <div class="mini-track"><div class="mini-fill daily" id="daily-fill"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <h2 class="section-title">Rhythm today</h2>
-        <div class="group pad">
-          <div class="chart-head">
-            <div>
-              <div class="k">Activity</div>
-              <div class="chart-legend">
-                <span><i class="dot" style="background:#8e8e93"></i>Active</span>
-                <span><i class="dot" style="background:#34c759"></i>On break</span>
-              </div>
-            </div>
-            <div class="chart-total tnum">4h 36m total</div>
-          </div>
-          <div class="hour-chart" id="hour-chart"></div>
-          <div class="hour-axis"><span>9 AM</span><span>11 AM</span><span>1 PM</span><span>3 PM</span><span>5 PM</span></div>
-        </div>
-      </section>
-
-      <!-- ================= Breaks ================= -->
-      <section class="page" id="page-breaks">
-        <div class="page-head">
-          <div class="eyebrow">Schedule</div>
-          <h1>Breaks</h1>
-          <p class="lede">Three timers keep your rhythm: short micro-breaks, real rest breaks, and a daily limit. Each one can be postponed — none of them should be ignored.</p>
-        </div>
-
-        <h2 class="section-title">Timers</h2>
-        <div class="group">
-          <div class="row">
-            <div class="tile" style="background:#30b0c7"><svg><use href="#i-clock"/></svg></div>
-            <div class="row-body"><div class="row-title">Micro-break</div><div class="row-sub">Time between breaks</div></div>
-            <div class="stepper" data-min="1" data-max="30" data-step="1" data-value="5" data-unit=" min"></div>
-            <div class="row-body" style="flex:none; text-align:right; width:120px"><div class="row-title" style="font-size:13px">Duration</div></div>
-            <div class="stepper" data-min="5" data-max="120" data-step="5" data-value="20" data-unit=" s"></div>
-            <button class="switch" role="switch" aria-checked="true" aria-label="Micro-break enabled"></button>
-          </div>
-          <div class="row">
-            <div class="tile" style="background:#34c759"><svg><use href="#i-break"/></svg></div>
-            <div class="row-body"><div class="row-title">Rest break</div><div class="row-sub">Time between breaks</div></div>
-            <div class="stepper" data-min="10" data-max="120" data-step="5" data-value="45" data-unit=" min"></div>
-            <div class="row-body" style="flex:none; text-align:right; width:120px"><div class="row-title" style="font-size:13px">Duration</div></div>
-            <div class="stepper" data-min="1" data-max="30" data-step="1" data-value="5" data-unit=" min"></div>
-            <button class="switch" role="switch" aria-checked="true" aria-label="Rest break enabled"></button>
-          </div>
-          <div class="row">
-            <div class="tile" style="background:#5856d6"><svg><use href="#i-history"/></svg></div>
-            <div class="row-body"><div class="row-title">Daily limit</div><div class="row-sub">Daily limit</div></div>
-            <div class="stepper" data-min="1" data-max="12" data-step="1" data-value="6" data-unit=" h"></div>
-            <div class="spacer"></div>
-            <button class="switch" role="switch" aria-checked="true" aria-label="Daily limit enabled"></button>
-          </div>
-        </div>
-
-        <h2 class="section-title">Break window</h2>
-        <div class="break-preview">
-          <div class="bp-stage">
-            <div class="bp-window">
-              <img src="assets/exercises/neck-tilt-stretch-1.png" alt="" width="168" height="168">
-              <div class="bp-copy">
-                <div class="bp-kicker">Rest break · 4:32 left</div>
-                <div class="bp-title">You need a rest break…</div>
-                <div class="bp-desc">Neck tilt stretch — slowly tilt your head to each shoulder and hold.</div>
-                <div class="bp-actions">
-                  <span class="btn btn-primary btn-sm">Start exercises</span>
-                  <span class="btn btn-secondary btn-sm">Postpone</span>
-                  <span class="btn btn-quiet btn-sm">Skip</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="bp-side">
-            <h3 class="small-title">During a break</h3>
-            <p class="muted small">The break window shows one of your exercises at a time, mirroring left/right sequences exactly like the desktop app. Buttons match Workrave: <em>Postpone</em>, <em>Skip</em>, and optionally <em>Lock</em>.</p>
-            <button class="btn btn-secondary" id="btn-preview-break">Preview Break</button>
-            <div class="divider"></div>
-            <div class="kv"><span>Block mode</span>
-              <div class="segmented" role="tablist" aria-label="Block mode">
-                <div class="thumb"></div>
-                <button role="tab" aria-selected="true">Off</button>
-                <button role="tab" aria-selected="false">Input</button>
-                <button role="tab" aria-selected="false">All</button>
-              </div>
-            </div>
-            <div class="kv"><span>Postpone</span>
-              <div class="stepper" data-min="1" data-max="30" data-step="1" data-value="5" data-unit=" min"></div>
-            </div>
-            <div class="kv"><span>Exercises in break</span>
-              <button class="switch" role="switch" aria-checked="true" aria-label="Exercises in break"></button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ================= Exercises ================= -->
-      <section class="page" id="page-exercises">
-        <div class="page-head">
-          <div class="eyebrow">Built-in set</div>
-          <h1>Exercises</h1>
-          <p class="lede">The exercises shipped with Workrave, illustrated and timed. Sequences play exactly as the desktop app shows them during breaks.</p>
-        </div>
-
-        <div class="search-bar">
-          <svg><use href="#i-search"/></svg>
-          <input type="search" id="ex-search" placeholder="Search exercises" aria-label="Search exercises">
-        </div>
-
-        <div class="exercise-list" id="exercise-list"></div>
-      </section>
-
-      <!-- ================= History ================= -->
-      <section class="page" id="page-history">
-        <div class="page-head">
-          <div class="eyebrow">Last 7 days</div>
-          <h1>History</h1>
+          <svg class="ring" viewBox="0 0 128 128" aria-label="62% of break interval elapsed">
+            <circle class="track" cx="64" cy="64" r="54"></circle>
+            <circle class="value" cx="64" cy="64" r="54" stroke-dasharray="209.7 128.9" transform="rotate(-90 64 64)"></circle>
+          </svg>
         </div>
 
         <div class="stat-row">
-          <div class="stat-cell">
-            <div class="k">Daily average</div>
-            <div class="big tnum">4h 12m</div>
-            <div class="d up">Active time</div>
+          <div class="stat-card card">
+            <div class="row-tile"><svg viewBox="0 0 24 24"><use href="#i-activity"/></svg></div>
+            <div class="stat-eyebrow">MICRO-BREAKS</div>
+            <div class="stat-value">24<span class="stat-unit">taken</span></div>
+            <div class="stat-foot">Every 5 minutes · 20 s</div>
           </div>
-          <div class="stat-cell">
-            <div class="k">Breaks taken</div>
-            <div class="big tnum">137</div>
-            <div class="d up">+9 vs last week</div>
+          <div class="stat-card card">
+            <div class="row-tile"><svg viewBox="0 0 24 24"><use href="#i-mug"/></svg></div>
+            <div class="stat-eyebrow">REST BREAKS</div>
+            <div class="stat-value">4<span class="stat-unit">taken</span></div>
+            <div class="stat-foot">Every 45 minutes · 5 min</div>
           </div>
-          <div class="stat-cell">
-            <div class="k">Compliance</div>
-            <div class="big tnum">92%</div>
-            <div class="d up">+4 pts</div>
-          </div>
-          <div class="stat-cell">
-            <div class="k">Overdue</div>
-            <div class="big tnum">18m</div>
-            <div class="d">this week</div>
+          <div class="stat-card card">
+            <div class="row-tile"><svg viewBox="0 0 24 24"><use href="#i-eye"/></svg></div>
+            <div class="stat-eyebrow">EXERCISES</div>
+            <div class="stat-value">12<span class="stat-unit">done</span></div>
+            <div class="stat-foot">7 minutes total</div>
           </div>
         </div>
 
-        <h2 class="section-title">This week</h2>
-        <div class="group pad">
-          <div class="week-chart" id="week-chart"></div>
-          <div class="hour-axis"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+        <h2 class="section-h">Recent activity</h2>
+        <div class="card list">
+          <div class="list-row">
+            <div class="row-tile t-cyan"><svg viewBox="0 0 24 24"><use href="#i-pause-mini"/></svg></div>
+            <div class="row-main"><div class="row-title">Micro-break</div><div class="row-sub">09:52 · 20 s · Completed</div></div>
+            <div class="row-meta">20 s</div>
+          </div>
+          <div class="list-row">
+            <div class="row-tile t-green"><svg viewBox="0 0 24 24"><use href="#i-mug"/></svg></div>
+            <div class="row-main"><div class="row-title">Rest break</div><div class="row-sub">09:15 · 5 min · Completed</div></div>
+            <div class="row-meta">5 min</div>
+          </div>
+          <div class="list-row">
+            <div class="row-tile t-indigo"><svg viewBox="0 0 24 24"><use href="#i-exercise"/></svg></div>
+            <div class="row-main"><div class="row-title">Exercises</div><div class="row-sub">09:16 · 6 exercises · Completed</div></div>
+            <div class="row-meta">2 min 32 s</div>
+          </div>
         </div>
 
-        <h2 class="section-title">Days</h2>
-        <div class="group" id="day-rows"></div>
+        <h2 class="section-h">Keep going</h2>
+        <div class="card list">
+          <div class="list-row">
+            <div class="row-tile t-cyan"><svg viewBox="0 0 24 24"><use href="#i-activity"/></svg></div>
+            <div class="row-main"><div class="row-title">3-day stretch</div><div class="row-sub">You've taken every break this week</div></div>
+            <span class="pill">On track</span>
+          </div>
+          <div class="list-row">
+            <div class="row-tile t-orange"><svg viewBox="0 0 24 24"><use href="#i-mug"/></svg></div>
+            <div class="row-main"><div class="row-title">Early bird</div><div class="row-sub">First rest break before 9:30</div></div>
+            <span class="pill done">Done</span>
+          </div>
+          <div class="list-row">
+            <div class="row-tile t-indigo"><svg viewBox="0 0 24 24"><use href="#i-eye"/></svg></div>
+            <div class="row-main"><div class="row-title">Eye care</div><div class="row-sub">6 eye exercises today</div></div>
+            <span class="pill done">Done</span>
+          </div>
+        </div>
       </section>
 
-      <!-- ================= Settings ================= -->
-      <section class="page" id="page-settings">
+      <!-- ============ EXERCISES ============ -->
+      <section class="page" data-page="exercises" hidden>
         <div class="page-head">
-          <div class="eyebrow">Workrave 1.12</div>
-          <h1>Settings</h1>
+          <h1>Exercises</h1>
+          <p>Ten guided exercises from your Workrave program</p>
         </div>
-
-        <div class="settings-grid">
+        <div class="card hero-ex">
           <div>
-            <h2 class="section-title">Behavior</h2>
-            <div class="group">
-              <div class="row">
-                <div class="tile" style="background:#34c759"><svg><use href="#i-exercise"/></svg></div>
-                <div class="row-body"><div class="row-title">Show exercises during breaks</div><div class="row-sub">Guided sequences from the built-in set</div></div>
-                <button class="switch" role="switch" aria-checked="true" aria-label="Show exercises"></button>
-              </div>
-              <div class="row">
-                <div class="tile" style="background:#ff9500"><svg><use href="#i-block"/></svg></div>
-                <div class="row-body"><div class="row-title">Strict block mode</div><div class="row-sub">Lock the screen until the break is over</div></div>
-                <button class="switch" role="switch" aria-checked="false" aria-label="Strict block mode"></button>
-              </div>
-              <div class="row">
-                <div class="tile" style="background:#30b0c7"><svg><use href="#i-eye"/></svg></div>
-                <div class="row-body"><div class="row-title">Rest break monitor</div><div class="row-sub">On which display the break appears</div></div>
-                <div class="segmented" role="tablist" aria-label="Rest break monitor">
-                  <div class="thumb"></div>
-                  <button role="tab" aria-selected="true">All</button>
-                  <button role="tab" aria-selected="false">1</button>
-                  <button role="tab" aria-selected="false">2</button>
-                </div>
-              </div>
-            </div>
-
-            <h2 class="section-title">Startup</h2>
-            <div class="group">
-              <div class="row">
-                <div class="tile" style="background:#5856d6"><svg><use href="#i-power"/></svg></div>
-                <div class="row-body"><div class="row-title">Launch at login</div><div class="row-sub">Start Workrave when you log in</div></div>
-                <button class="switch" role="switch" aria-checked="true" aria-label="Launch at login"></button>
-              </div>
-              <div class="row">
-                <div class="tile" style="background:#8e8e93"><svg><use href="#i-today"/></svg></div>
-                <div class="row-body"><div class="row-title">Start in Quiet mode</div><div class="row-sub">Only rest breaks until you switch back</div></div>
-                <button class="switch" role="switch" aria-checked="false" aria-label="Start in Quiet mode"></button>
-              </div>
+            <div class="eyebrow">UP NEXT</div>
+            <h2 class="ex-name">Shoulder-arm stretch</h2>
+            <p class="ex-desc">Stretch your shoulder and arm muscles to reduce tension.</p>
+            <div class="hero-actions">
+              <button class="btn" data-action="take-break">Start now</button>
+              <button class="btn ghost" data-action="take-break">Preview</button>
             </div>
           </div>
+          <img class="ex-img" src="assets/exercises/shoulder-arm-stretch-1.png" alt="Shoulder-arm stretch">
+        </div>
+        <h2 class="section-h">All exercises</h2>
+        <div class="ex-grid">
+          <button class="ex-item" data-action="take-break">
+            <img src="assets/exercises/shoulder-arm-stretch-1.png" alt="">
+            <div class="ex-item-body">
+              <div class="ex-title">Shoulder-arm stretch</div>
+              <div class="ex-desc">Stretch your shoulder and arm muscles to reduce tension.</div>
+              <div class="ex-meta"><svg class="clock"><use href="#i-activity"/></svg>40 s</div>
+            </div>
+          </button>
+          <button class="ex-item" data-action="take-break">
+            <img src="assets/exercises/finger-stretch-1.png" alt="">
+            <div class="ex-item-body">
+              <div class="ex-title">Finger stretch</div>
+              <div class="ex-desc">Stretch your fingers to improve flexibility and circulation.</div>
+              <div class="ex-meta"><svg class="clock"><use href="#i-activity"/></svg>40 s</div>
+            </div>
+          </button>
+          <button class="ex-item" data-action="take-break">
+            <img src="assets/exercises/neck-tilt-stretch-1.png" alt="">
+            <div class="ex-item-body">
+              <div class="ex-title">Neck tilt stretch</div>
+              <div class="ex-desc">Gently stretch the muscles on the side of your neck.</div>
+              <div class="ex-meta"><svg class="clock"><use href="#i-activity"/></svg>30 s</div>
+            </div>
+          </button>
+          <button class="ex-item" data-action="take-break">
+            <img src="assets/exercises/backward-shoulder-stretch-1.png" alt="">
+            <div class="ex-item-body">
+              <div class="ex-title">Backward shoulder stretch</div>
+              <div class="ex-desc">Stretch your shoulder muscles by pulling your arm backward.</div>
+              <div class="ex-meta"><svg class="clock"><use href="#i-activity"/></svg>30 s</div>
+            </div>
+          </button>
+          <button class="ex-item" data-action="take-break">
+            <img src="assets/exercises/monitor-border-1.png" alt="">
+            <div class="ex-item-body">
+              <div class="ex-title">Move the eyes</div>
+              <div class="ex-desc">Move your eyes from side to side to relax your eye muscles.</div>
+              <div class="ex-meta"><svg class="clock"><use href="#i-activity"/></svg>32 s</div>
+            </div>
+          </button>
+          <button class="ex-item" data-action="take-break">
+            <img src="assets/exercises/depth-focus-1.png" alt="">
+            <div class="ex-item-body">
+              <div class="ex-title">Train focusing the eyes</div>
+              <div class="ex-desc">Focus on your thumb and objects further away to train your focus.</div>
+              <div class="ex-meta"><svg class="clock"><use href="#i-activity"/></svg>25 s</div>
+            </div>
+          </button>
+          <button class="ex-item" data-action="take-break">
+            <img src="assets/exercises/eye-darkness-1.png" alt="">
+            <div class="ex-item-body">
+              <div class="ex-title">Look into the darkness</div>
+              <div class="ex-desc">Close your eyes and relax them in darkness.</div>
+              <div class="ex-meta"><svg class="clock"><use href="#i-activity"/></svg>20 s</div>
+            </div>
+          </button>
+          <button class="ex-item" data-action="take-break">
+            <img src="assets/exercises/rotate-arm-1.png" alt="">
+            <div class="ex-item-body">
+              <div class="ex-title">Move the shoulders</div>
+              <div class="ex-desc">Rotate your shoulders in circular movements.</div>
+              <div class="ex-meta"><svg class="clock"><use href="#i-activity"/></svg>30 s</div>
+            </div>
+          </button>
+          <button class="ex-item" data-action="take-break">
+            <img src="assets/exercises/chair-pushup-1.png" alt="">
+            <div class="ex-item-body">
+              <div class="ex-title">Move the shoulders up and down</div>
+              <div class="ex-desc">Push yourself up from your chair using your arms.</div>
+              <div class="ex-meta"><svg class="clock"><use href="#i-activity"/></svg>30 s</div>
+            </div>
+          </button>
+          <button class="ex-item" data-action="take-break">
+            <img src="assets/exercises/turn-head-1.png" alt="">
+            <div class="ex-item-body">
+              <div class="ex-title">Turn your head</div>
+              <div class="ex-desc">Turn your head to each side to stretch your neck.</div>
+              <div class="ex-meta"><svg class="clock"><use href="#i-activity"/></svg>24 s</div>
+            </div>
+          </button>
+        </div>
+      </section>
 
-          <div>
-            <h2 class="section-title">Sound &amp; appearance</h2>
-            <div class="group">
-              <div class="row">
-                <div class="tile" style="background:#ff2d55"><svg><use href="#i-bell"/></svg></div>
-                <div class="row-body"><div class="row-title">Break signal</div><div class="row-sub">Sound theme</div></div>
-                <span class="row-value">Breeze</span>
-                <svg class="chevron"><use href="#i-chevron"/></svg>
-              </div>
-              <div class="row">
-                <div class="tile" style="background:#ffcc00"><svg><use href="#i-sound"/></svg></div>
-                <div class="row-body"><div class="row-title">Volume</div><div class="row-sub"><span id="volume-val">60</span>%</div></div>
-                <input class="slider" type="range" min="0" max="100" value="60" id="volume-slider" aria-label="Volume" style="max-width:180px">
-              </div>
-              <div class="row">
-                <div class="tile" style="background:#5856d6"><svg><use href="#i-shapes"/></svg></div>
-                <div class="row-body"><div class="row-title">Appearance</div><div class="row-sub">Light, dark, or follow the system</div></div>
-                <div class="segmented" id="theme-seg-2" role="tablist" aria-label="Appearance">
-                  <div class="thumb"></div>
-                  <button role="tab" aria-selected="true" data-theme="light">Light</button>
-                  <button role="tab" aria-selected="false" data-theme="dark">Dark</button>
-                  <button role="tab" aria-selected="false" data-theme="auto">Auto</button>
-                </div>
-              </div>
-            </div>
+      <!-- ============ PAUSE ============ -->
+      <section class="page" data-page="pause" hidden>
+        <div class="page-head">
+          <h1>Pause</h1>
+          <p>Silence prompts while you're away — Workrave resumes on its own</p>
+        </div>
+        <div class="card list">
+          <div class="list-row">
+            <div class="row-tile t-cyan"><svg viewBox="0 0 24 24"><use href="#i-pause"/></svg></div>
+            <div class="row-main"><div class="row-title">Pause until I return</div><div class="row-sub">All timers hold; prompts stay quiet</div></div>
+            <button class="btn sm" id="btn-pause">Pause</button>
+          </div>
+          <div class="list-row">
+            <div class="row-tile t-indigo"><svg viewBox="0 0 24 24"><use href="#i-moon"/></svg></div>
+            <div class="row-main"><div class="row-title">Rest of the day</div><div class="row-sub">Resume tomorrow at 09:00</div></div>
+            <button class="btn sm ghost" id="btn-day">End day</button>
+          </div>
+        </div>
 
-            <h2 class="section-title">About</h2>
-            <div class="group">
-            <div class="row">
-              <div class="row-tile app-icon"><img src="assets/workrave.png" alt="" width="30" height="30"></div>
-              <div class="row-body"><div class="row-title">Workrave</div><div class="row-sub">Break-reminder for RSI prevention</div></div>
-              <span class="row-value">1.12</span>
-            </div>
-            </div>
+        <h2 class="section-h">Quiet modes</h2>
+        <div class="card list">
+          <div class="list-row">
+            <div class="row-tile t-gray"><svg viewBox="0 0 24 24"><use href="#i-pause-mini"/></svg></div>
+            <div class="row-main"><div class="row-title">Silence break prompts</div><div class="row-sub">Timers keep counting, no windows appear</div></div>
+            <button class="switch on" id="sw-quiet" role="switch" aria-checked="true"></button>
+          </div>
+          <div class="list-row">
+            <div class="row-tile t-blue"><svg viewBox="0 0 24 24"><use href="#i-activity"/></svg></div>
+            <div class="row-main"><div class="row-title">Reading mode</div><div class="row-sub">Fewer micro-breaks while you read</div></div>
+            <button class="switch" id="sw-reading" role="switch" aria-checked="false"></button>
+          </div>
+          <div class="list-row">
+            <div class="row-tile t-orange"><svg viewBox="0 0 24 24"><use href="#i-mug"/></svg></div>
+            <div class="row-main"><div class="row-title">Mute exercise audio</div><div class="row-sub">Guidance stays on screen, no voice</div></div>
+            <button class="switch on" id="sw-mute" role="switch" aria-checked="true"></button>
+          </div>
+        </div>
+
+        <h2 class="section-h">History</h2>
+        <div class="card list">
+          <div class="list-row">
+            <div class="row-tile t-gray"><svg viewBox="0 0 24 24"><use href="#i-pause-mini"/></svg></div>
+            <div class="row-main"><div class="row-title">Paused 40 minutes</div><div class="row-sub">Yesterday · 14:10 – 14:50</div></div>
+            <div class="row-meta">40 min</div>
+          </div>
+          <div class="list-row">
+            <div class="row-tile t-gray"><svg viewBox="0 0 24 24"><use href="#i-moon"/></svg></div>
+            <div class="row-main"><div class="row-title">Ended day early</div><div class="row-sub">Monday · 17:30</div></div>
+            <div class="row-meta">—</div>
           </div>
         </div>
       </section>
 
+      <!-- ============ STATISTICS ============ -->
+      <section class="page" data-page="statistics" hidden>
+        <div class="page-head">
+          <h1>Statistics</h1>
+          <p>Breaks, exercises and activity from the past week</p>
+        </div>
+        <div class="stat-row">
+          <div class="stat-card card">
+            <div class="row-tile"><svg viewBox="0 0 24 24"><use href="#i-activity"/></svg></div>
+            <div class="stat-eyebrow">BREAKS TAKEN</div>
+            <div class="stat-value">142</div>
+            <div class="stat-foot">+12% vs last week</div>
+          </div>
+          <div class="stat-card card">
+            <div class="row-tile"><svg viewBox="0 0 24 24"><use href="#i-mug"/></svg></div>
+            <div class="stat-eyebrow">REST BREAKS</div>
+            <div class="stat-value">21</div>
+            <div class="stat-foot">3 per day on average</div>
+          </div>
+          <div class="stat-card card">
+            <div class="row-tile"><svg viewBox="0 0 24 24"><use href="#i-eye"/></svg></div>
+            <div class="stat-eyebrow">EXERCISES</div>
+            <div class="stat-value">58</div>
+            <div class="stat-foot">96% completion</div>
+          </div>
+        </div>
+
+        <h2 class="section-h">Breaks this week</h2>
+        <div class="card">
+          <div class="chart">
+            <div class="col"><span class="bar" style="height:25.3px"></span><span class="cap">18</span><span class="day">Mon</span></div>
+            <div class="col"><span class="bar" style="height:32.2px"></span><span class="cap">23</span><span class="day">Tue</span></div>
+            <div class="col"><span class="bar" style="height:28px"></span><span class="cap">20</span><span class="day">Wed</span></div>
+            <div class="col"><span class="bar" style="height:35px"></span><span class="cap">25</span><span class="day">Thu</span></div>
+            <div class="col"><span class="bar" style="height:30.8px"></span><span class="cap">22</span><span class="day">Fri</span></div>
+            <div class="col"><span class="bar" style="height:19.7px"></span><span class="cap">14</span><span class="day">Sat</span></div>
+            <div class="col"><span class="bar" style="height:14px"></span><span class="cap">10</span><span class="day">Sun</span></div>
+          </div>
+        </div>
+
+        <h2 class="section-h">Daily activity</h2>
+        <div class="card list">
+          <div class="list-row">
+            <div class="row-tile"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></div>
+            <div class="row-main"><div class="row-title">Monday</div><div class="row-sub">18 micro-breaks · 3 rest breaks · 8 exercises</div></div>
+            <div class="row-meta">96%</div>
+          </div>
+          <div class="list-row">
+            <div class="row-tile"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></div>
+            <div class="row-main"><div class="row-title">Tuesday</div><div class="row-sub">23 micro-breaks · 3 rest breaks · 9 exercises</div></div>
+            <div class="row-meta">100%</div>
+          </div>
+          <div class="list-row">
+            <div class="row-tile"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></div>
+            <div class="row-main"><div class="row-title">Wednesday</div><div class="row-sub">20 micro-breaks · 3 rest breaks · 12 exercises</div></div>
+            <div class="row-meta">98%</div>
+          </div>
+          <div class="list-row">
+            <div class="row-tile"><svg viewBox="0 0 24 24"><use href="#i-skip"/></svg></div>
+            <div class="row-main"><div class="row-title">Thursday</div><div class="row-sub">25 micro-breaks · 4 rest breaks · 7 exercises</div></div>
+            <div class="row-meta">88%</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SETTINGS ============ -->
+      <section class="page" data-page="settings" hidden>
+        <div class="page-head">
+          <h1>Settings</h1>
+          <p>Tune the timers to the way you work</p>
+        </div>
+        <div class="settings-grid">
+          <div class="card">
+            <h2 class="group-h">Breaks</h2>
+            <div class="set-row">
+              <div class="row-main"><div class="row-title">Micro-break every</div><div class="row-sub">Short pauses to rest your hands</div></div>
+              <div class="seg" id="seg-micro">
+                <span class="seg-thumb"></span>
+                <button data-v="3">3 min</button><button data-v="5" class="on">5 min</button><button data-v="10">10 min</button>
+              </div>
+            </div>
+            <div class="set-row">
+              <div class="row-main"><div class="row-title">Rest break every</div><div class="row-sub">Longer breaks to stand and stretch</div></div>
+              <div class="seg" id="seg-rest">
+                <span class="seg-thumb"></span>
+                <button data-v="30">30 min</button><button data-v="45" class="on">45 min</button><button data-v="60">60 min</button>
+              </div>
+            </div>
+            <div class="set-row">
+              <div class="row-main"><div class="row-title">Daily limit</div><div class="row-sub">Time to stop for the day</div></div>
+              <div class="seg" id="seg-daily">
+                <span class="seg-thumb"></span>
+                <button data-v="4">4 h</button><button data-v="6" class="on">6 h</button><button data-v="8">8 h</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="group-h">Exercises</h2>
+            <div class="set-row">
+              <div class="row-main"><div class="row-title">Suggest exercises</div><div class="row-sub">Offer a set with every rest break</div></div>
+              <button class="switch on" id="sw-suggest" role="switch" aria-checked="true"></button>
+            </div>
+            <div class="set-row">
+              <div class="row-main"><div class="row-title">Exercise duration</div><div class="row-sub">Default length of each exercise</div></div>
+              <div class="seg" id="seg-dur">
+                <span class="seg-thumb"></span>
+                <button data-v="15">15 s</button><button data-v="25" class="on">25 s</button><button data-v="40">40 s</button>
+              </div>
+            </div>
+            <div class="set-row">
+              <div class="row-main"><div class="row-title">Voice guidance</div><div class="row-sub">Spoken cues during exercises</div></div>
+              <button class="switch" id="sw-voice" role="switch" aria-checked="false"></button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="group-h">Sound</h2>
+            <div class="set-row">
+              <div class="row-main"><div class="row-title">Break sounds</div><div class="row-sub">Play a chime when a break starts</div></div>
+              <button class="switch on" id="sw-sound" role="switch" aria-checked="true"></button>
+            </div>
+            <div class="set-row">
+              <div class="row-main"><div class="row-title">Volume</div><div class="row-sub">Output level for all cues</div></div>
+              <input type="range" id="rg-vol" min="0" max="100" value="65" aria-label="Volume">
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="group-h">Theme</h2>
+            <div class="set-row">
+              <div class="row-main"><div class="row-title">Appearance</div><div class="row-sub">How the app looks on your desktop</div></div>
+              <div class="seg" id="seg-theme">
+                <span class="seg-thumb"></span>
+                <button data-v="light" class="on">Light</button><button data-v="dark">Dark</button><button data-v="auto">Auto</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </main>
 </div>
 
-<!-- ===== Break overlay (real exercise player) ===== -->
-<div class="break-overlay" id="break-overlay" role="dialog" aria-modal="true" aria-label="Break">
-  <div class="brk-window">
-    <div class="brk-head">
+<!-- break overlay -->
+<div class="break-overlay" id="break-overlay" aria-hidden="true">
+  <div class="break-glow" aria-hidden="true"></div>
+  <div class="break-sky" id="break-sky" aria-hidden="true">
+    <svg class="sky-clouds" viewBox="0 0 1200 220" preserveAspectRatio="none">
+      <use class="cloud c1" href="#cloud-shape" x="60" y="20"></use>
+      <use class="cloud c2" href="#cloud-shape" x="420" y="50"></use>
+      <use class="cloud c3" href="#cloud-shape" x="820" y="15"></use>
+    </svg>
+    <svg class="sky-hills" viewBox="0 0 1200 260" preserveAspectRatio="none">
+      <use class="hill h1" href="#hill-shape"></use>
+      <use class="hill h2" href="#hill-shape"></use>
+      <use class="hill h3" href="#hill-shape"></use>
+    </svg>
+    <svg class="sky-sun" viewBox="0 0 220 220">
+      <circle cx="110" cy="110" r="86"></circle>
+    </svg>
+    <div class="sky-glass"></div>
+    <svg width="0" height="0" style="position:absolute"><defs>
+      <symbol id="hill-shape" viewBox="0 0 1200 260"><path d="M0 260V150C120 150 180 80 320 80S540 160 680 160 920 90 1200 90v170z"/></symbol>
+      <symbol id="cloud-shape" viewBox="0 0 260 120"><ellipse cx="90" cy="72" rx="82" ry="42"/><ellipse cx="170" cy="56" rx="72" ry="50"/><ellipse cx="215" cy="80" rx="52" ry="32"/><ellipse cx="42" cy="88" rx="46" ry="28"/></symbol>
+    </defs></svg>
+  </div>
+  <div class="break-card">
+    <div class="break-count" id="break-count">05:00</div>
+    <h2 class="break-h">Time for a break</h2>
+    <p class="break-sub" id="break-sub">Rest your eyes, stretch a little. This pause lasts 5 minutes.</p>
+    <div class="break-progress"><span id="break-progress-fill"></span></div>
+    <div class="break-dots" id="break-dots" role="tablist" aria-label="Exercises">
+      <button class="dot on" role="tab" aria-selected="true" aria-label="Exercise 1"></button>
+      <button class="dot" role="tab" aria-selected="false" aria-label="Exercise 2"></button>
+      <button class="dot" role="tab" aria-selected="false" aria-label="Exercise 3"></button>
+      <button class="dot" role="tab" aria-selected="false" aria-label="Exercise 4"></button>
+      <button class="dot" role="tab" aria-selected="false" aria-label="Exercise 5"></button>
+      <button class="dot" role="tab" aria-selected="false" aria-label="Exercise 6"></button>
+    </div>
+    <div class="break-ex">
       <div>
-        <div class="brk-kicker" id="brk-kicker">Rest break</div>
-        <div class="brk-title" id="brk-title">You need a rest break…</div>
+        <h3 class="break-ex-name" id="break-ex-name">Shoulder-arm stretch</h3>
+        <p class="break-ex-sub" id="break-ex-sub">Stretch your shoulder and arm muscles to reduce tension.</p>
       </div>
-      <div class="brk-count tnum" id="brk-count">05:00</div>
+      <img id="break-ex-img" src="assets/exercises/shoulder-arm-stretch-1.png" alt="" width="128" height="128">
     </div>
-    <div class="brk-stage">
-      <img id="brk-img" src="assets/exercises/shoulder-arm-stretch.png" alt="Exercise illustration">
-      <div class="brk-steps" id="brk-steps"></div>
-    </div>
-    <div class="brk-copy">
-      <div class="brk-ex-title" id="brk-ex-title">Shoulder-arm stretch</div>
-      <p class="brk-ex-desc" id="brk-ex-desc">Keep one arm horizontally stretched in front of your chest…</p>
-    </div>
-    <div class="brk-foot">
-      <button class="btn btn-quiet" id="brk-skip">Skip</button>
-      <div class="spacer"></div>
-      <button class="btn btn-secondary" id="brk-postpone">Postpone</button>
-      <button class="btn btn-primary" id="brk-next">Next Exercise</button>
+    <div class="break-actions">
+      <button class="btn ghost" id="break-skip"><svg class="ic"><use href="#i-skip"/></svg>Skip exercise</button>
+      <button class="btn capsule" id="break-done"><svg class="ic"><use href="#i-check"/></svg>Done for now</button>
     </div>
   </div>
 </div>

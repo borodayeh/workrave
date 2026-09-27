@@ -134,6 +134,11 @@ DayTimePred::get_next(time_t last_time)
           ret->tm_year++;
         }
 
+      // Let mktime() determine whether the computed target time is in
+      // daylight-saving time. Keeping the stale tm_isdst of 'last_time'
+      // made the computed time off by one hour across DST transitions.
+      ret->tm_isdst = -1;
+
       return mktime(ret);
     }
 

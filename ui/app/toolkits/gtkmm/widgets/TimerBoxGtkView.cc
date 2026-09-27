@@ -370,7 +370,11 @@ TimerBoxGtkView::init_table()
 void
 TimerBoxGtkView::set_slot(BreakId id, int slot)
 {
-  if (current_content[slot] != id)
+  // Also compare against the pending content: current_content is only synced
+  // after init_table() has run, so comparing against current_content alone
+  // could leave a stale new_content behind when set_slot() is called twice
+  // before the view is updated.
+  if (current_content[slot] != id || new_content[slot] != id)
     {
       new_content[slot] = id;
       reconfigure = true;

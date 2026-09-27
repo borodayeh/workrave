@@ -18,6 +18,7 @@
 #ifndef WORKRAVE_UI_TIMERBOXCONTROL_HH
 #define WORKRAVE_UI_TIMERBOXCONTROL_HH
 
+#include <ctime>
 #include <string>
 
 #include "utils/Signals.hh"
@@ -60,6 +61,7 @@ private:
   workrave::OperationMode operation_mode{};
   int force_duration{0};
   bool force_empty{false};
+  time_t last_cycle_bucket{0};
 };
 
 #endif // WORKRAVE_UI_TIMERBOXCONTROL_HH

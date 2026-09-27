@@ -123,7 +123,7 @@
     </nav>
 
     <div class="sidebar-status">
-      <img class="sheep" src="assets/workrave.png" alt="Workrave" width="42" height="42">
+      <div class="app-icon"><img src="assets/workrave.png" alt="Workrave" width="28" height="28"></div>
       <div>
         <div class="st-label"><span class="st-dot"></span><span id="status-mode">Active</span></div>
         <div class="st-sub">Next break in <span class="tnum" id="status-next">12:41</span></div>
@@ -192,7 +192,7 @@
         <h2 class="section-title">Your breaks</h2>
         <div class="group">
           <div class="row row-break" data-open="breaks">
-            <img class="row-art" src="assets/micro-break.png" alt="" width="52" height="52">
+            <div class="row-tile" style="background:#30b0c7"><svg><use href="#i-pause"/></svg></div>
             <div class="row-body">
               <div class="row-title">Micro-break</div>
               <div class="row-sub">20-second pause every 5 minutes</div>
@@ -203,7 +203,7 @@
             </div>
           </div>
           <div class="row row-break" data-open="breaks">
-            <img class="row-art" src="assets/rest-break.png" alt="" width="52" height="52">
+            <div class="row-tile" style="background:#34c759"><svg><use href="#i-break"/></svg></div>
             <div class="row-body">
               <div class="row-title">Rest break</div>
               <div class="row-sub">5-minute break every 45 minutes</div>
@@ -214,7 +214,7 @@
             </div>
           </div>
           <div class="row row-break" data-open="breaks">
-            <img class="row-art" src="assets/daily-limit.png" alt="" width="52" height="52">
+            <div class="row-tile" style="background:#5856d6"><svg><use href="#i-history"/></svg></div>
             <div class="row-body">
               <div class="row-title">Daily limit</div>
               <div class="row-sub">6 hours of activity, then stop for today</div>
@@ -450,11 +450,11 @@
 
             <h2 class="section-title">About</h2>
             <div class="group">
-              <div class="row">
-                <img class="row-art round" src="assets/workrave.png" alt="" width="42" height="42">
-                <div class="row-body"><div class="row-title">Workrave</div><div class="row-sub">Break-reminder for RSI prevention</div></div>
-                <span class="row-value">1.12</span>
-              </div>
+            <div class="row">
+              <div class="row-tile app-icon"><img src="assets/workrave.png" alt="" width="30" height="30"></div>
+              <div class="row-body"><div class="row-title">Workrave</div><div class="row-sub">Break-reminder for RSI prevention</div></div>
+              <span class="row-value">1.12</span>
+            </div>
             </div>
           </div>
         </div>

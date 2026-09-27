@@ -138,9 +138,23 @@ input:focus-visible {
   border-top: 1px solid var(--hairline);
 }
 
-.sidebar-status .sheep {
+.sidebar-status .app-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
   flex: none;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.12));
+  display: grid;
+  place-items: center;
+  background: linear-gradient(160deg, #4cd964, #2aa844);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18), inset 0 0.5px 0 rgba(255, 255, 255, 0.3);
+  padding: 3px;
+}
+
+.sidebar-status .app-icon img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.18));
 }
 
 .st-label {
@@ -321,6 +335,34 @@ input:focus-visible {
   object-fit: cover;
   border-radius: var(--radius-sm);
   border: 1px solid var(--hairline);
+}
+
+.row-tile {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  flex: none;
+  box-shadow: inset 0 0.5px 0 rgba(255, 255, 255, 0.28), 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+.row-tile svg {
+  width: 19px;
+  height: 19px;
+}
+
+.row-tile.app-icon {
+  background: linear-gradient(160deg, #4cd964, #2aa844);
+  padding: 3px;
+}
+
+.row-tile.app-icon img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.18));
 }
 
 .row-art.round {
